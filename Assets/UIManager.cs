@@ -109,9 +109,13 @@ public class UIManager : MonoBehaviour {
         for (int i = 0; i < HandPlayer.transform.childCount; i++)
         {
             HandPlayer.transform.GetChild(i).localPosition = Vector3.Lerp(HandPlayer.transform.GetChild(i).localPosition, positionHandPlayer[i], Mathf.Clamp(timerPlayer * 0.2f, 0, 1));
-            if (HandPlayer.transform.GetChild(HandPlayer.transform.childCount - 1).localPosition == positionHandPlayer[HandPlayer.transform.childCount - 1])
+            if (Vector3.Distance(HandPlayer.transform.GetChild(HandPlayer.transform.childCount - 1).localPosition, positionHandPlayer[HandPlayer.transform.childCount - 1]) <= 0.2f )
             {
                 updateHandPlayerPosition = false;
+                for (int j = 0; j < HandEnemy.transform.childCount; j++)
+                {
+                    HandPlayer.transform.GetChild(j).GetComponent<CardInstance>().IsReady = true;
+                }
                 timerPlayer = 0.0f;
             }
         }
@@ -123,9 +127,13 @@ public class UIManager : MonoBehaviour {
         for (int i = 0; i < HandEnemy.transform.childCount; i++)
         {
             HandEnemy.transform.GetChild(i).localPosition = Vector3.Lerp(HandEnemy.transform.GetChild(i).localPosition, positionHandEnemy[i], Mathf.Clamp(timerEnemy * 0.2f, 0, 1));
-            if (HandEnemy.transform.GetChild(HandEnemy.transform.childCount - 1).localPosition == positionHandEnemy[HandEnemy.transform.childCount - 1])
+            if (Vector3.Distance(HandEnemy.transform.GetChild(HandPlayer.transform.childCount - 1).localPosition, positionHandEnemy[HandEnemy.transform.childCount - 1]) <= 0.2f)
             {
                 updateHandEnemyPosition = false;
+                for (int j = 0; j < HandEnemy.transform.childCount; j++)
+                {
+                    HandEnemy.transform.GetChild(j).GetComponent<CardInstance>().IsReady = true;
+                }
                 timerEnemy = 0.0f;
             }
         }

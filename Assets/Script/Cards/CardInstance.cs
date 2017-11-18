@@ -8,7 +8,7 @@ public class CardInstance : MonoBehaviour {
     #region Properties
     private Card cardData;
 
-    public bool IsSelected = false;
+    public bool IsReady = false;
 
     bool isHidden = false;
 
