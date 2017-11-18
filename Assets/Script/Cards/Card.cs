@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Card : MonoBehaviour {
+public class Card {
     
     #region Properties
     private int cardHealth;
@@ -40,13 +40,7 @@ public class Card : MonoBehaviour {
     public void HandleCardHealth(int _newValue)
     {
         cardHealth += _newValue;
-
-        // After effect
-        ChangeShaderMask(cardHealth);
     }
 
-    public void ChangeShaderMask(int maskIndice)
-    {
-        // Do nothing for now
-    }
+
 }
