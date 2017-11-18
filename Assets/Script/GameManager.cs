@@ -197,7 +197,7 @@ public class GameManager : MonoBehaviour
     public void HandleAI()
     {
         List<Card> selectedCardData = new List<Card>();
-        List<Card> copyList = currentEnemy.enemyData.playerCards;
+        List<Card> copyList = new List<Card>(currentEnemy.enemyData.playerCards);
         switch (currentEnemy.typeOfAI)
         {
             case (AIType.Bully):
