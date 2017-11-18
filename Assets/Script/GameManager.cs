@@ -61,6 +61,7 @@ public class GameManager : MonoBehaviour
                                 alreadySelected = true;
                             }
 
+                            cardInstance.IsLock = false;
                             instance.dictionarySelectedCardsValues.Remove(cardInstance);
                             for (int i = 0; i < cardInstance.transform.childCount; i++)
                             {
@@ -72,8 +73,8 @@ public class GameManager : MonoBehaviour
                         if (!alreadySelected)
                         {
                             instance.dictionarySelectedCardsValues.Add(cardInstance, Convert.ToInt32(hitInfo.transform.GetComponent<Text>().text));
+                            cardInstance.IsLock = true;
                             hitInfo.transform.GetComponent<Outline>().effectColor = Color.red;
-
                         }
 
 
@@ -88,6 +89,28 @@ public class GameManager : MonoBehaviour
                         CardInstance cardInstance = hitInfo.transform.gameObject.GetComponent<CardInstance>();
                         if (!selectedCards.Contains(cardInstance))
                         {
+                            for (int i =0; i < cardInstance.transform.parent.childCount; i++)
+                            {
+
+                                if(i != cardInstance.transform.GetSiblingIndex())
+                                {
+                                    if (instance.selectedCards.Contains(cardInstance.transform.parent.GetChild(i).GetComponent<CardInstance>()))
+                                    {
+                                        if (!cardInstance.transform.parent.GetChild(i).GetComponent<CardInstance>().IsLock)
+                                        {
+                                            instance.selectedCards.Remove(cardInstance.transform.parent.GetChild(i).GetComponent<CardInstance>());
+                                            cardInstance.transform.parent.GetChild(i).GetComponent<CardInstance>().transform.parent.GetChild(i).transform.localPosition -= new Vector3(0, 60f, 0);
+
+                                        }
+                                   
+                                    }
+                                }
+                           
+                          
+
+                            }
+
+
                             instance.selectedCards.Add(cardInstance);
                             hitInfo.transform.localPosition += new Vector3(0, 60f, 0);
                         }
