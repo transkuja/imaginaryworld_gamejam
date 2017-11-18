@@ -10,6 +10,7 @@ public class CardInstance : MonoBehaviour {
 
     public bool IsReady = false;
     public bool IsLock = false;
+    public bool IsSelected = false;
 
     public bool isHidden = false;
 

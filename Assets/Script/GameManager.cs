@@ -101,7 +101,7 @@ public class GameManager : MonoBehaviour
 
                         if (instance.dictionarySelectedCardsValues.ContainsKey(cardInstance))
                         {
-                            if (hitInfo.transform.GetComponent<Outline>().effectColor == new Color(.42f, .97f, 0))
+                            if (hitInfo.transform.GetComponentInParent<CardInstance>().IsSelected)
                             {
                                 alreadySelected = true;
                             }
@@ -111,6 +111,7 @@ public class GameManager : MonoBehaviour
                             for (int i = 0; i < cardInstance.transform.childCount; i++)
                             {
                                 cardInstance.transform.GetChild(i).GetComponent<Outline>().effectColor = Color.black;
+                                hitInfo.transform.GetComponentInParent<CardInstance>().IsSelected = false;
                             }
 
                         }
@@ -120,6 +121,7 @@ public class GameManager : MonoBehaviour
                             instance.dictionarySelectedCardsValues.Add(cardInstance, Convert.ToInt32(hitInfo.transform.GetComponent<Text>().text));
                             cardInstance.IsLock = true;
                             hitInfo.transform.GetComponent<Outline>().effectColor = new Color(.42f, .97f, 0);
+                            hitInfo.transform.GetComponentInParent<CardInstance>().IsSelected = true;
 
                             // Button Fight
                             ToogleButtonFight();
