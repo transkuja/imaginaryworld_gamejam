@@ -6,13 +6,14 @@ using UnityEngine.EventSystems;
 public class GameManager : MonoBehaviour {
 
     public static GameManager instance;
+    public SpriteUtils SpriteUtils;
     public LayerMask layerMask;
     public Texture2D icon;
     //private PointerEventData pointerData;
     // Use this for initialization
     void Start () {
         instance = this;
-
+        SpriteUtils = GetComponentInChildren<SpriteUtils>();
         //Cursor.SetCursor(icon, Vector2.zero, CursorMode.Auto);
     }
 	

@@ -54,7 +54,7 @@ public class UIManager : MonoBehaviour {
             instCard.transform.localPosition = Vector3.zero;
             //instCard.transform.localScale = Vector3.one;
             instCard.transform.parent = HandPlayer.transform;
-            instCard.GetComponent<CardInstance>().cardData = handCards[i];
+            instCard.GetComponent<CardInstance>().CardData = handCards[i];
             instCard.GetComponent<CardInstance>().RefreshValues();
         }
     }
@@ -67,7 +67,9 @@ public class UIManager : MonoBehaviour {
             instCard.transform.localPosition = Vector3.zero;
             //instCard.transform.localScale = Vector3.one;
             instCard.transform.parent = HandEnemy.transform;
-            instCard.GetComponent<CardInstance>().cardData = handCards[i];
+            
+            instCard.GetComponent<CardInstance>().CardData = handCards[i];
+            instCard.GetComponent<CardInstance>().IsHidden = true;
             instCard.GetComponent<CardInstance>().RefreshValues();
         }
     }
