@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class ShieldCard : Card {
 
+
+    public int defenseValue;
+
     // Override of card use();
     public override void Use() {
 
