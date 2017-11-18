@@ -10,9 +10,9 @@ public class Player
     public List<Card> playerCards = new List<Card>();
 
     public List<Card> playerDeck = new List<Card>();
-    public delegate void DestroyedCard(Player player, int cardIndex);
+    public delegate void DamagedCard(Player player, int cardIndex, bool destroyed);
 
-    public static DestroyedCard OnCardDestroy;
+    public static DamagedCard OnCardDamage;
 
     public static int MAX_CARDS_IN_HAND = 8;
 
@@ -40,8 +40,13 @@ public class Player
             if(playerCards[damagedCardIndex].CardHealth == 0)
             {
                 playerCards.RemoveAt(damagedCardIndex);
-                if (OnCardDestroy != null)
-                    OnCardDestroy(this, damagedCardIndex);
+                if (OnCardDamage != null)
+                    OnCardDamage(this, damagedCardIndex, true);
+            }
+            else
+            {
+                if (OnCardDamage != null)
+                    OnCardDamage(this, damagedCardIndex, false);
             }
         }
     }
