@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public enum CardType { Sword, Shield }
-public class PlayerController : MonoBehaviour {
+public class EnemyController : MonoBehaviour {
     [Serializable]
     public struct CardInfo
     {
@@ -15,20 +14,20 @@ public class PlayerController : MonoBehaviour {
         public int value4;
     }
 
-    public Player playerData;
+    public Player enemyData;
 
     public CardInfo[] buildDeckWith;
 
     // Use this for initialization
     void Start () {
-        playerData = new Player();
+        enemyData = new Player();
 
         InitDeck();
-        playerData.ShuffleDeck();
+        enemyData.ShuffleDeck();
         InitHand();
 
 
-        UIManager.instance.PlayerInitHand(playerData.playerCards);
+        UIManager.instance.EnemyInitHand(enemyData.playerCards);
     }
 	
 	// Update is called once per frame
@@ -44,10 +43,10 @@ public class PlayerController : MonoBehaviour {
             switch (buildDeckWith[i].cardType)
             {
                 case CardType.Sword:
-                    playerData.playerDeck.Add(new SwordCard(buildDeckWith[i].value1, buildDeckWith[i].value2, buildDeckWith[i].value3, buildDeckWith[i].value4));
+                    enemyData.playerDeck.Add(new SwordCard(buildDeckWith[i].value1, buildDeckWith[i].value2, buildDeckWith[i].value3, buildDeckWith[i].value4));
                     break;
                 case CardType.Shield:
-                    playerData.playerDeck.Add(new ShieldCard(buildDeckWith[i].value1, buildDeckWith[i].value2, buildDeckWith[i].value3, buildDeckWith[i].value4));
+                    enemyData.playerDeck.Add(new ShieldCard(buildDeckWith[i].value1, buildDeckWith[i].value2, buildDeckWith[i].value3, buildDeckWith[i].value4));
                     break;
             }
 
@@ -56,8 +55,8 @@ public class PlayerController : MonoBehaviour {
         // Default
         if (buildDeckWith.Length == 0)
         {
-            playerData.playerDeck.Add(new SwordCard(1, 2, 3, 4));
-            playerData.playerDeck.Add(new ShieldCard(1, 2, 3, 4));
+            enemyData.playerDeck.Add(new SwordCard(1, 2, 3, 4));
+            enemyData.playerDeck.Add(new ShieldCard(1, 2, 3, 4));
         }
     }
 
@@ -65,7 +64,7 @@ public class PlayerController : MonoBehaviour {
     {
         for ( int i = 0; i < Player.MAX_CARDS_IN_HAND; i++)
         {
-            playerData.DrawNextCard();
+            enemyData.DrawNextCard();
         }
 
     }

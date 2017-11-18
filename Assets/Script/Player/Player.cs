@@ -10,7 +10,7 @@ public class Player
 
     public List<Card> playerDeck = new List<Card>();
 
-    public int MAX_CARDS_IN_HAND = 8;
+    public static int MAX_CARDS_IN_HAND = 8;
 
     public int currentTurnDefenseValue;
     #endregion
