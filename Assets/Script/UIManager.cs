@@ -54,6 +54,7 @@ public class UIManager : MonoBehaviour {
 
     public void Start()
     {
+        Player.OnCardDamage += DamageCardAnimation;
         InitHandPlayerPosition();
         InitHandEnemyPosition();
         InitTmpCardPlayedPosition();
@@ -83,6 +84,11 @@ public class UIManager : MonoBehaviour {
 
         if (moveTurnText)
             MoveTurnText();
+    }
+
+    private void OnDestroy()
+    {
+        Player.OnCardDamage -= DamageCardAnimation;
     }
 
     public void PlayerInitHand(List<Card> handCards)
@@ -262,6 +268,27 @@ public class UIManager : MonoBehaviour {
         moveTurnText = true;
         yield return new WaitForSeconds(2f);
 
+    }
+
+    void DamageCardAnimation(Player player, int cardIndex, bool destroyed)
+    {
+        if(player == GameManager.instance.CurrentPlayer.playerData)
+        {
+
+        }
+        else if(player == GameManager.instance.CurrentEnemy.enemyData)
+        {
+
+        }
+        else
+        {
+            Debug.LogError("Player not found");
+            return;
+        }
+        if(destroyed)
+        {
+
+        }
     }
 
     public void MoveTurnText()
