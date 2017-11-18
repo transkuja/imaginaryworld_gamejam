@@ -180,6 +180,8 @@ public class UIManager : MonoBehaviour {
 
     public void StartFightForPlayer()
     {
+
+
         List<Card> selectedCardData = new List<Card>();
         for (int i = 0; i < GameManager.instance.selectedCards.Count; i++)
         {
@@ -204,6 +206,10 @@ public class UIManager : MonoBehaviour {
         // Clear
         GameManager.instance.selectedCards.Clear();
         GameManager.instance.dictionarySelectedCardsValues.Clear();
+
+        // Button fight
+        GameManager.instance.ToogleButtonFight();
+
     }
 
     public void InitTmpCardPlayedPosition()

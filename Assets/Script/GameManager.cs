@@ -122,14 +122,8 @@ public class GameManager : MonoBehaviour
                             hitInfo.transform.GetComponent<Outline>().effectColor = new Color(.42f, .97f, 0);
 
                             // Button Fight
-                            if(instance.dictionarySelectedCardsValues.Count == 3)
-                            {
-                                UIManager.instance.buttonFight.GetComponent<Button>().interactable = true;
-                            } else
-                            {
-                                UIManager.instance.buttonFight.GetComponent<Button>().interactable = false;
-                            }
-                            
+                            ToogleButtonFight();
+
                         }
 
 
@@ -179,15 +173,7 @@ public class GameManager : MonoBehaviour
                             }
 
                         }
-
-                        if (instance.dictionarySelectedCardsValues.Count == 3)
-                        {
-                            UIManager.instance.buttonFight.GetComponent<Button>().interactable = true;
-                        }
-                        else
-                        {
-                            UIManager.instance.buttonFight.GetComponent<Button>().interactable = false;
-                        }
+                        ToogleButtonFight();
                     }
                 }
             }
@@ -222,6 +208,19 @@ public class GameManager : MonoBehaviour
 
         handled = true;
         BattleHandler.SendCardSelection(selectedCardData);
+    }
+
+    public void ToogleButtonFight()
+    {
+
+        if (instance.dictionarySelectedCardsValues.Count == 3)
+        {
+            UIManager.instance.buttonFight.GetComponent<Button>().interactable = true;
+        }
+        else
+        {
+            UIManager.instance.buttonFight.GetComponent<Button>().interactable = false;
+        }
     }
 
 }
