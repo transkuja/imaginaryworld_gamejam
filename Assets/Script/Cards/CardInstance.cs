@@ -11,7 +11,7 @@ public class CardInstance : MonoBehaviour {
     public bool IsReady = false;
     public bool IsLock = false;
 
-    bool isHidden = false;
+    public bool isHidden = false;
 
     private Image refImage;
 
@@ -50,11 +50,16 @@ public class CardInstance : MonoBehaviour {
 
         set
         {
+            //If we need to hide the card, change the sprite and hide the numbers
             if(value)
             {
                 if (!refImage)
                     refImage = GetComponent<Image>();
                 refImage.sprite = GameManager.instance.SpriteUtils.hiddenSprite;
+                transform.GetChild(0).gameObject.SetActive(false);
+                transform.GetChild(1).gameObject.SetActive(false);
+                transform.GetChild(2).gameObject.SetActive(false);
+                transform.GetChild(3).gameObject.SetActive(false);
             }
             else
             {
@@ -70,6 +75,10 @@ public class CardInstance : MonoBehaviour {
                     {
                         refImage.sprite = GameManager.instance.SpriteUtils.shieldSprite;
                     }
+                    transform.GetChild(0).gameObject.SetActive(true);
+                    transform.GetChild(1).gameObject.SetActive(true);
+                    transform.GetChild(2).gameObject.SetActive(true);
+                    transform.GetChild(3).gameObject.SetActive(true);
                 }
             }
             isHidden = value;
@@ -80,8 +89,8 @@ public class CardInstance : MonoBehaviour {
     public void Start()
     {
         refImage = GetComponent<Image>();
-
-        //Material mat = refMeshRenderer.material;
+        //Allows to run the code in the IsHidden setter
+        IsHidden = isHidden;
     }
 
     public void Update()
