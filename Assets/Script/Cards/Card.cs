@@ -35,10 +35,6 @@ public class Card {
             else
                 // Affectation
                 cardHealth = value;
-            
-
-
-
         }
     }
     #endregion
