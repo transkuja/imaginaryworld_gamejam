@@ -102,11 +102,15 @@ public static class BattleHandler {
             {
                 if (!isAnAscSuite && !isADescSuite)
                     isAnAscSuite = true;
+
+                if (isADescSuite) isASuite = false;
             }
             else if (combinationsPlayed[j + 1] == combinationsPlayed[j] - 1)
             {
                 if (!isAnAscSuite && !isADescSuite)
                     isADescSuite = true;
+
+                if (isAnAscSuite) isASuite = false;
             }
             else
                 isASuite = false;
