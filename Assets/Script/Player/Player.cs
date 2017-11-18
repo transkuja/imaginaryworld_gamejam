@@ -2,9 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour {
+public class Player
+{
+
+    #region Properties
 
     public List<Card> playerCards = new List<Card>();
+
+    public List<Card> playerDeck = new List<Card>();
+
+    public int MAX_CARDS_IN_HAND = 8;
+    #endregion
+
     public int currentTurnDefenseValue;
 
     // Damage cards owned
