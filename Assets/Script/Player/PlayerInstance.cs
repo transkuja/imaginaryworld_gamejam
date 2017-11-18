@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 
 public enum CardType { Sword, Shield }
-public class PlayerController : MonoBehaviour {
+public class PlayerInstance : MonoBehaviour {
     [Serializable]
     public struct CardInfo
     {
@@ -16,6 +16,8 @@ public class PlayerController : MonoBehaviour {
     }
 
     public Player playerData;
+
+    public List<GameObject> selectedCards= new List<GameObject>();
 
     public CardInfo[] buildDeckWith;
 
@@ -67,7 +69,5 @@ public class PlayerController : MonoBehaviour {
         {
             playerData.DrawNextCard();
         }
-
     }
-
 }

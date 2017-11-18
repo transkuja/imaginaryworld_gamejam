@@ -22,7 +22,8 @@ GameObject:
   - component: {fileID: 222295625832303134}
   - component: {fileID: 114445681862552832}
   - component: {fileID: 114521862647568042}
-  m_Layer: 5
+  - component: {fileID: 61103044899341920}
+  m_Layer: 8
   m_Name: CardPlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,9 +41,9 @@ GameObject:
   - component: {fileID: 222912038206485490}
   - component: {fileID: 114738785212541908}
   - component: {fileID: 114778897961982438}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Val4
-  m_TagString: Untagged
+  m_TagString: value
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -58,9 +59,9 @@ GameObject:
   - component: {fileID: 222727315021072048}
   - component: {fileID: 114175884231228390}
   - component: {fileID: 114528193394073792}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Val3
-  m_TagString: Untagged
+  m_TagString: value
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -76,9 +77,9 @@ GameObject:
   - component: {fileID: 222795079601116344}
   - component: {fileID: 114097055053760492}
   - component: {fileID: 114807111425187216}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Val
-  m_TagString: Untagged
+  m_TagString: value
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -94,13 +95,38 @@ GameObject:
   - component: {fileID: 222859773936448562}
   - component: {fileID: 114654023303139772}
   - component: {fileID: 114652742426183338}
-  m_Layer: 5
+  m_Layer: 8
   m_Name: Val2
-  m_TagString: Untagged
+  m_TagString: value
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!61 &61103044899341920
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1088464450379576}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 300, y: 300}
+  m_EdgeRadius: 0
 --- !u!114 &114097055053760492
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -205,6 +231,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d4b9f6d3690b604aa365e92860c00a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  IsSelected: 0
 --- !u!114 &114528193394073792
 MonoBehaviour:
   m_ObjectHideFlags: 1

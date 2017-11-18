@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class EnemyController : MonoBehaviour {
+public class EnemyInstance: MonoBehaviour {
     [Serializable]
     public struct CardInfo
     {

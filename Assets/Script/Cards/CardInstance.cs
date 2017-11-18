@@ -8,6 +8,8 @@ public class CardInstance : MonoBehaviour {
     #region Properties
     public Card cardData;
 
+    public bool IsSelected = false;
+
     private MeshRenderer refMeshRenderer;
     #endregion
 
