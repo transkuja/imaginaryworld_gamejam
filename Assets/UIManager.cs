@@ -52,7 +52,7 @@ public class UIManager : MonoBehaviour {
         {
             GameObject instCard = Instantiate(cardPlayerPrefab, DeckPlayer.gameObject.transform);
             instCard.transform.localPosition = Vector3.zero;
-            instCard.transform.localScale = Vector3.one;
+            //instCard.transform.localScale = Vector3.one;
             instCard.transform.parent = HandPlayer.transform;
             instCard.GetComponent<CardInstance>().cardData = handCards[i];
             instCard.GetComponent<CardInstance>().RefreshValues();
@@ -65,7 +65,7 @@ public class UIManager : MonoBehaviour {
         {
             GameObject instCard = Instantiate(cardEnemyPrefab, DeckEnemy.gameObject.transform);
             instCard.transform.localPosition = Vector3.zero;
-            instCard.transform.localScale = Vector3.one;
+            //instCard.transform.localScale = Vector3.one;
             instCard.transform.parent = HandEnemy.transform;
             instCard.GetComponent<CardInstance>().cardData = handCards[i];
             instCard.GetComponent<CardInstance>().RefreshValues();
@@ -76,10 +76,10 @@ public class UIManager : MonoBehaviour {
     public void InitHandPlayerPosition()
     {
         positionHandPlayer = new Vector3[Player.MAX_CARDS_IN_HAND];
-        float spaceBetweenCards = cardPlayerPrefab.GetComponent<RectTransform>().rect.width / 7.0f;
-        for (int i = 0; i < 4; i++)
+        float spaceBetweenCards = cardPlayerPrefab.GetComponent<RectTransform>().rect.width / 15.0f;
+        for (int i = 0; i < Player.MAX_CARDS_IN_HAND; i++)
         {
-            positionHandPlayer[i] = HandPlayer.transform.position + (i * cardPlayerPrefab.GetComponent<RectTransform>().rect.width * Vector3.right) + (i > 0 ? (spaceBetweenCards * Vector3.right) : Vector3.zero);
+            positionHandPlayer[i] = HandPlayer.transform.position + (i * cardPlayerPrefab.GetComponent<RectTransform>().rect.width * cardPlayerPrefab.GetComponent<RectTransform>().localScale.x * Vector3.right) + (i > 0 ? (spaceBetweenCards * Vector3.right*i) : Vector3.zero);
         }
 
         updateHandPlayerPosition = true;
@@ -90,10 +90,10 @@ public class UIManager : MonoBehaviour {
     {
         // TODO enemy card in hand
         positionHandEnemy = new Vector3[Player.MAX_CARDS_IN_HAND];
-        float spaceBetweenCards = cardEnemyPrefab.GetComponent<RectTransform>().rect.width / 7.0f;
-        for (int i = 0; i < 4; i++)
+        float spaceBetweenCards = cardEnemyPrefab.GetComponent<RectTransform>().rect.width / 15.0f;
+        for (int i = 0; i < Player.MAX_CARDS_IN_HAND; i++)
         {
-            positionHandEnemy[i] = HandEnemy.transform.position + (i * cardEnemyPrefab.GetComponent<RectTransform>().rect.width * Vector3.left) + (i > 0 ? (spaceBetweenCards * Vector3.left) : Vector3.zero);
+            positionHandEnemy[i] = HandEnemy.transform.position + (i * cardEnemyPrefab.GetComponent<RectTransform>().rect.width * cardEnemyPrefab.GetComponent<RectTransform>().localScale.x * Vector3.left) + (i > 0 ? (spaceBetweenCards * Vector3.left*i) : Vector3.zero);
         }
 
         updateHandEnemyPosition = true;
