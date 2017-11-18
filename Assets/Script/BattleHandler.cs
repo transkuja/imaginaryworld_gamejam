@@ -70,7 +70,7 @@ public static class BattleHandler {
     }
 
 
-    static void CardResolution()
+    public static void CardResolution()
     {
         ComboAnalysis();
         ApplyCardEffects();

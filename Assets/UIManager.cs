@@ -14,6 +14,8 @@ public class UIManager : MonoBehaviour {
     public GameObject cardPlayerPrefab;
     public GameObject cardEnemyPrefab;
 
+    public GameObject buttonFight;
+
     public static UIManager instance;
 
     // Player Hand
@@ -138,5 +140,34 @@ public class UIManager : MonoBehaviour {
             }
         }
 
+    }
+
+    public void StartFightForPlayer()
+    {
+        List<Card> selectedCardData = new List<Card>();
+        for (int i = 0; i < GameManager.instance.selectedCards.Count; i++)
+        {
+            GameManager.instance.selectedCards[i].CardData.combinationPlayed = GameManager.instance.dictionarySelectedCardsValues[GameManager.instance.selectedCards[i]];
+            selectedCardData.Add(GameManager.instance.selectedCards[i].CardData);
+        }
+        BattleHandler.SendCardSelection(selectedCardData);
+
+        // Deselecte
+        for (int i=0; i<GameManager.instance.selectedCards.Count; i++)
+        {
+            for (int j = 0; j < GameManager.instance.selectedCards[i].transform.childCount; j++)
+            {
+                GameManager.instance.selectedCards[i].transform.GetChild(j).GetComponent<Outline>().effectColor = Color.white;
+            }
+       
+            GameManager.instance.selectedCards[i].transform.localPosition -= new Vector3(0, 60f, 0);
+        }
+
+        // Clear
+        GameManager.instance.selectedCards.Clear();
+        GameManager.instance.dictionarySelectedCardsValues.Clear();
+
+        BattleHandler.CardResolution();
+        BattleHandler.NextTurn();
     }
 }

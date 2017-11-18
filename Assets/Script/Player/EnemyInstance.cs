@@ -14,6 +14,7 @@ public class EnemyInstance: MonoBehaviour {
         public int value4;
     }
 
+    public AIType typeOfAI;
     public Player enemyData;
 
     public CardInfo[] buildDeckWith;
@@ -28,6 +29,8 @@ public class EnemyInstance: MonoBehaviour {
 
 
         UIManager.instance.EnemyInitHand(enemyData.playerCards);
+
+        GameManager.instance.CurrentEnemy = this;
     }
 	
 	// Update is called once per frame

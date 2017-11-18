@@ -31,6 +31,8 @@ public class PlayerInstance : MonoBehaviour {
 
 
         UIManager.instance.PlayerInitHand(playerData.playerCards);
+
+        GameManager.instance.CurrentPlayer = this;
     }
 	
 	// Update is called once per frame

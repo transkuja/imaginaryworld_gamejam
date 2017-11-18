@@ -4,7 +4,10 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using System;
+using Random = UnityEngine.Random;
 
+
+public enum AIType { Bully, Nerd, Prof }
 public class GameManager : MonoBehaviour
 {
 
@@ -16,7 +19,45 @@ public class GameManager : MonoBehaviour
     public List<CardInstance> selectedCards;
     public Dictionary<CardInstance, int> dictionarySelectedCardsValues;
 
+    private PlayerInstance currentPlayer;
+    private EnemyInstance currentEnemy;
+
     private bool clickOnValue = false;
+
+    public PlayerInstance CurrentPlayer
+    {
+        get
+        {
+            return currentPlayer;
+        }
+
+        set
+        { 
+            currentPlayer = value;
+            if (CurrentEnemy)
+            {
+                BattleHandler.StartBattle(currentPlayer.playerData, currentEnemy.enemyData);
+            }
+                 
+        }
+    }
+
+    public EnemyInstance CurrentEnemy
+    {
+        get
+        {
+            return currentEnemy;
+        }
+
+        set
+        {
+            currentEnemy = value;
+            if (currentPlayer)
+            {
+                BattleHandler.StartBattle(currentPlayer.playerData, currentEnemy.enemyData);
+            }
+        }
+    }
 
     private void Awake()
     {
@@ -33,7 +74,10 @@ public class GameManager : MonoBehaviour
 
     public void Update()
     {
-        MouseControls();
+        if( BattleHandler.currentTurn == BattleHandler.EntityTurn.Player)
+            MouseControls();
+        if (BattleHandler.currentTurn == BattleHandler.EntityTurn.AI)
+            HandleAI();
     }
 
     public void MouseControls()
@@ -75,6 +119,16 @@ public class GameManager : MonoBehaviour
                             instance.dictionarySelectedCardsValues.Add(cardInstance, Convert.ToInt32(hitInfo.transform.GetComponent<Text>().text));
                             cardInstance.IsLock = true;
                             hitInfo.transform.GetComponent<Outline>().effectColor = Color.red;
+
+                            // Button Fight
+                            if(instance.dictionarySelectedCardsValues.Count == 3)
+                            {
+                                UIManager.instance.buttonFight.GetComponent<Button>().interactable = true;
+                            } else
+                            {
+                                UIManager.instance.buttonFight.GetComponent<Button>().interactable = false;
+                            }
+                            
                         }
 
 
@@ -105,9 +159,6 @@ public class GameManager : MonoBehaviour
                                    
                                     }
                                 }
-                           
-                          
-
                             }
 
 
@@ -126,6 +177,15 @@ public class GameManager : MonoBehaviour
                             }
 
                         }
+
+                        if (instance.dictionarySelectedCardsValues.Count == 3)
+                        {
+                            UIManager.instance.buttonFight.GetComponent<Button>().interactable = true;
+                        }
+                        else
+                        {
+                            UIManager.instance.buttonFight.GetComponent<Button>().interactable = false;
+                        }
                     }
                 }
             }
@@ -133,4 +193,33 @@ public class GameManager : MonoBehaviour
         }
 
     }
+
+    public void HandleAI()
+    {
+        List<Card> selectedCardData = new List<Card>();
+        List<Card> copyList = currentEnemy.enemyData.playerCards;
+        switch (currentEnemy.typeOfAI)
+        {
+            case (AIType.Bully):
+            case (AIType.Nerd):
+            case (AIType.Prof):
+            default:
+                Debug.Log("Using random intelligence on an AI");
+                for (int i = 0; i < 4; i++)
+                {
+                    int randomCard = Random.Range(0, copyList.Count-1);
+                    copyList.RemoveAt(randomCard);
+                    // Random Intelligence
+                    int randomCombinaison = Random.Range(0, 4);
+                    currentEnemy.enemyData.playerCards[i].combinationPlayed = currentEnemy.enemyData.playerCards[randomCard].combinationValues[randomCombinaison];
+                    selectedCardData.Add(currentEnemy.enemyData.playerCards[i]);
+                }
+                break;
+        }
+   
+        BattleHandler.SendCardSelection(selectedCardData);
+        BattleHandler.CardResolution();
+        BattleHandler.NextTurn();
+    }
+
 }
