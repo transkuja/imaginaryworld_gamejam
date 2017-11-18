@@ -5,33 +5,57 @@ using UnityEngine;
 
 
 public static class BattleHandler {
-    enum EntityTurn { Player, AI }
+    public enum EntityTurn { Player, AI }
     enum Combo { None, Suite, Pairs, AllTheSame }
-    static EntityTurn currentTurn;
+    public static EntityTurn currentTurn;
     static Player playerData;
     static Player enemyData;
 
     static List<Card> lastSelectionReceived;
     static Combo comboReceived;
 
-    static void Init()
-    {
-        currentTurn = (EntityTurn)Random.Range(0, 2);
-    }
-
+    // Use this method at the beginning of a battle to initialize the battle handler
     public static void StartBattle(Player _playerData, Player _enemyData)
     {
+        Init();
         playerData = _playerData;
         enemyData = _enemyData;
 
-        Init();
+        // ask the AI for the card selection
+        if (currentTurn == EntityTurn.AI)
+            Debug.Log("AI is playing ...");
+        // ask the player
+        else
+            Debug.Log("Player is playing ...");
+
     }
 
     // Use this method to send the cards the player/AI selected
     public static void SendCardSelection(List<Card> _cardSelection)
     {
         lastSelectionReceived = _cardSelection;
+        CardResolution();
     }
+
+
+    // This function should be call when we want the turn to change
+    public static void NextTurn()
+    {
+        if (currentTurn == EntityTurn.AI)
+            currentTurn = EntityTurn.Player;
+        else
+            currentTurn = EntityTurn.AI;
+    }
+
+    static void Init()
+    {
+        currentTurn = (EntityTurn)Random.Range(0, 2);
+        lastSelectionReceived = new List<Card>();
+        comboReceived = Combo.None;
+        playerData = null;
+        enemyData = null;
+    }
+
 
     static void CardResolution()
     {
@@ -131,4 +155,5 @@ public static class BattleHandler {
 
         return 1.0f;
     }
+
 }
