@@ -92,21 +92,25 @@ public static class BattleHandler {
             i++;
         }
 
-        combinationsPlayed = combinationsPlayed.OrderBy(j => j).ToArray();
         bool isASuite = true;
+        for (int j = 0; j < combinationsPlayed.Length - 1; j++)
+        {
+            if (combinationsPlayed[j] != combinationsPlayed[j + 1])
+            {
+                if (combinationsPlayed[j] != combinationsPlayed[j + 1] - 1)
+                    isASuite = false;
+            }
+        }
+
+        combinationsPlayed = combinationsPlayed.OrderBy(j => j).ToArray();
+
         bool containsAPair = false;
         bool areAllTheSame = true;
 
         for (int j = 0; j < combinationsPlayed.Length - 1; j++)
         {
             if (combinationsPlayed[j] != combinationsPlayed[j + 1])
-            {
                 areAllTheSame = false;
-                if (combinationsPlayed[j] != combinationsPlayed[j + 1] - 1)
-                {
-                    isASuite = false;
-                }
-            }
             else
                 containsAPair = true;
         }
