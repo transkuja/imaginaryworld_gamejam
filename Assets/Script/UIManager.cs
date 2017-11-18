@@ -18,6 +18,11 @@ public class UIManager : MonoBehaviour {
 
     public GameObject buttonFight;
 
+    public GameObject turnText;
+    private Vector3 turnTextOrigin;
+    private Vector3 turnTextArrival;
+    public bool moveTurnText = false;
+
     public static UIManager instance;
 
     public List<GameObject> tmpCardsPlayedInst = new List<GameObject>();
@@ -51,6 +56,8 @@ public class UIManager : MonoBehaviour {
         InitHandPlayerPosition();
         InitHandEnemyPosition();
         InitTmpCardPlayedPosition();
+        turnTextOrigin = turnText.transform.position;
+        turnTextArrival = turnTextOrigin + (0.4f* Vector3.right);
     }
 
     public void Update()
@@ -72,7 +79,9 @@ public class UIManager : MonoBehaviour {
             battleHandlerNeedNextTurn = false;
             BattleHandler.NextTurn();
         }
- 
+
+        if (moveTurnText)
+            MoveTurnText();
     }
 
     public void PlayerInitHand(List<Card> handCards)
@@ -249,6 +258,7 @@ public class UIManager : MonoBehaviour {
             //instance.tmpCardsPlayedInst.RemoveAt(i);
 
         }
+
     }
 
     public void CardResolutionUI()
@@ -264,4 +274,31 @@ public class UIManager : MonoBehaviour {
         yield return new WaitForSeconds(0.5f);
     }
 
+    public void ChangeTurn(string text)
+    {
+        StartCoroutine(UIManager.instance.YourTurn(text));
+    }
+
+    public IEnumerator YourTurn(string text)
+    {
+        turnText.GetComponent<Text>().text = text +"'s Turn ...";
+        turnText.transform.localPosition = turnTextOrigin;
+        turnText.SetActive(true);
+        moveTurnText = true;
+        yield return new WaitForSeconds(2f);
+
+    }
+
+    public void MoveTurnText()
+    {
+        turnText.transform.position += Vector3.right  *0.2f* Time.deltaTime;
+        Debug.Log(Vector3.Distance(turnText.transform.position, turnTextArrival));
+        if (Vector3.Distance(turnText.transform.position, turnTextArrival)< 0.2f)
+        {
+
+            moveTurnText = false;
+            turnText.SetActive(false);
+        }
+
+    }
 }

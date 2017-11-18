@@ -8,12 +8,35 @@ public static class BattleHandler {
     public enum EntityTurn { Player, AI }
     enum Combo { None, Suite, Pairs, AllTheSame }
     enum BattleState { Win, Lose, Continue }
-    public static EntityTurn currentTurn;
+    private static EntityTurn currentTurn;
     static Player playerData;
     static Player enemyData;
 
     static List<Card> lastSelectionReceived;
     static Combo comboReceived;
+
+    public static EntityTurn CurrentTurn
+    {
+        get
+        {
+            return currentTurn;
+        }
+
+        set
+        {
+            switch(value)
+            {
+                case EntityTurn.Player:
+                    UIManager.instance.ChangeTurn("Player");
+                    break;
+                case EntityTurn.AI:
+                    UIManager.instance.ChangeTurn("Bob");
+                    break;
+
+            }
+            currentTurn = value;
+        }
+    }
 
     // Use this method at the beginning of a battle to initialize the battle handler
     public static void StartBattle(Player _playerData, Player _enemyData)
@@ -23,7 +46,7 @@ public static class BattleHandler {
         enemyData = _enemyData;
 
         // ask the AI for the card selection
-        if (currentTurn == EntityTurn.AI)
+        if (CurrentTurn == EntityTurn.AI)
             Debug.Log("AI is playing ...");
         // ask the player
         else
@@ -46,10 +69,15 @@ public static class BattleHandler {
         BattleState currentState = CheckForBattleEnd();
         if (currentState == BattleState.Continue)
         {
-            if (currentTurn == EntityTurn.AI)
-                currentTurn = EntityTurn.Player;
+            if (CurrentTurn == EntityTurn.AI)
+            {
+                CurrentTurn = EntityTurn.Player;
+            }
             else
-                currentTurn = EntityTurn.AI;
+            {
+                CurrentTurn = EntityTurn.AI;
+            }
+          
         }
         else if (currentState == BattleState.Win)
         {
@@ -67,7 +95,7 @@ public static class BattleHandler {
 
     static void Init()
     {
-        currentTurn = (EntityTurn)Random.Range(0, 2);
+        CurrentTurn = (EntityTurn)Random.Range(0, 2);
         lastSelectionReceived = new List<Card>();
         comboReceived = Combo.None;
         playerData = null;
@@ -155,7 +183,7 @@ public static class BattleHandler {
 
             if (c.GetType() == typeof(ShieldCard))
             {
-                if (currentTurn == EntityTurn.Player)
+                if (CurrentTurn == EntityTurn.Player)
                     playerData.currentTurnDefenseValue += ((ShieldCard)c).defenseValue;
                 else
                     enemyData.currentTurnDefenseValue += ((ShieldCard)c).defenseValue;
@@ -169,7 +197,7 @@ public static class BattleHandler {
     {
         int effectiveDamage = (int)(_rawDamage * GetDamageMultiplierFromCombo(comboReceived));
 
-        if (currentTurn == EntityTurn.Player)
+        if (CurrentTurn == EntityTurn.Player)
             enemyData.TakeDamage(effectiveDamage);
         else
             playerData.TakeDamage(effectiveDamage);

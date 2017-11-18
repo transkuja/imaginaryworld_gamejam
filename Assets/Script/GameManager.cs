@@ -75,9 +75,9 @@ public class GameManager : MonoBehaviour
 
     public void Update()
     {
-        if( BattleHandler.currentTurn == BattleHandler.EntityTurn.Player)
+        if( BattleHandler.CurrentTurn == BattleHandler.EntityTurn.Player)
             MouseControls();
-        if (BattleHandler.currentTurn == BattleHandler.EntityTurn.AI && !handled)
+        if (BattleHandler.CurrentTurn == BattleHandler.EntityTurn.AI && !handled)
             HandleAI();
     }
 

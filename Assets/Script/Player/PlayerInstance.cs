@@ -29,7 +29,6 @@ public class PlayerInstance : MonoBehaviour {
         playerData.ShuffleDeck();
         InitHand();
 
-
         UIManager.instance.PlayerInitHand(playerData.playerCards);
 
         GameManager.instance.CurrentPlayer = this;
