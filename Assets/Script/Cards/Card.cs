@@ -28,10 +28,16 @@ public class Card {
         {
             // Control
             if (value < 0)
-                Debug.LogError("Card >> Card Health : negative value");
+            {
+                //Debug.LogError("Card >> Card Health : negative value");
+                cardHealth = 0;
+            }
+            else
+                // Affectation
+                cardHealth = value;
             
-            // Affectation
-            cardHealth = value;
+
+
 
         }
     }

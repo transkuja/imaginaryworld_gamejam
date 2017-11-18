@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class Player
 {
@@ -9,6 +10,9 @@ public class Player
     public List<Card> playerCards = new List<Card>();
 
     public List<Card> playerDeck = new List<Card>();
+    public delegate void DestroyedCard(Player player, int cardIndex);
+
+    public static DestroyedCard OnCardDestroy;
 
     public static int MAX_CARDS_IN_HAND = 8;
 
@@ -31,6 +35,14 @@ public class Player
             currentTurnDefenseValue = 0;
 
             // TODO: damage cards
+            int damagedCardIndex = Random.Range(0, playerCards.Count);
+            playerCards[damagedCardIndex].CardHealth -= damageOnCards;
+            if(playerCards[damagedCardIndex].CardHealth == 0)
+            {
+                playerCards.RemoveAt(damagedCardIndex);
+                if (OnCardDestroy != null)
+                    OnCardDestroy(this, damagedCardIndex);
+            }
         }
     }
 

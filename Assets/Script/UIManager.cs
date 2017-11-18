@@ -186,7 +186,7 @@ public class UIManager : MonoBehaviour {
             for (int j = 0; j < GameManager.instance.selectedCards[i].transform.childCount; j++)
             {
                 GameManager.instance.selectedCards[i].GetComponent<CardInstance>().IsLock = false;
-                GameManager.instance.selectedCards[i].transform.GetChild(j).GetComponent<Outline>().effectColor = Color.white;
+                GameManager.instance.selectedCards[i].transform.GetChild(j).GetComponent<Outline>().effectColor = Color.black;
             }
        
             GameManager.instance.selectedCards[i].transform.localPosition -= new Vector3(0, 60f, 0);

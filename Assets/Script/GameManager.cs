@@ -101,7 +101,7 @@ public class GameManager : MonoBehaviour
 
                         if (instance.dictionarySelectedCardsValues.ContainsKey(cardInstance))
                         {
-                            if (hitInfo.transform.GetComponent<Outline>().effectColor == Color.red)
+                            if (hitInfo.transform.GetComponent<Outline>().effectColor == new Color(.42f, .97f, 0))
                             {
                                 alreadySelected = true;
                             }
@@ -110,7 +110,7 @@ public class GameManager : MonoBehaviour
                             instance.dictionarySelectedCardsValues.Remove(cardInstance);
                             for (int i = 0; i < cardInstance.transform.childCount; i++)
                             {
-                                cardInstance.transform.GetChild(i).GetComponent<Outline>().effectColor = Color.white;
+                                cardInstance.transform.GetChild(i).GetComponent<Outline>().effectColor = Color.black;
                             }
 
                         }
@@ -119,7 +119,7 @@ public class GameManager : MonoBehaviour
                         {
                             instance.dictionarySelectedCardsValues.Add(cardInstance, Convert.ToInt32(hitInfo.transform.GetComponent<Text>().text));
                             cardInstance.IsLock = true;
-                            hitInfo.transform.GetComponent<Outline>().effectColor = Color.red;
+                            hitInfo.transform.GetComponent<Outline>().effectColor = new Color(.42f, .97f, 0);
 
                             // Button Fight
                             if(instance.dictionarySelectedCardsValues.Count == 3)
@@ -175,7 +175,7 @@ public class GameManager : MonoBehaviour
                             instance.dictionarySelectedCardsValues.Remove(cardInstance);
                             for (int i = 0; i < cardInstance.transform.childCount; i++)
                             {
-                                cardInstance.transform.GetChild(i).GetComponent<Outline>().effectColor = Color.white;
+                                cardInstance.transform.GetChild(i).GetComponent<Outline>().effectColor = Color.black;
                             }
 
                         }
