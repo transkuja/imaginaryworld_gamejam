@@ -286,14 +286,12 @@ public class UIManager : MonoBehaviour {
             GameManager.instance.selectedCards[i].CardData.combinationPlayed = GameManager.instance.dictionarySelectedCardsValues[GameManager.instance.selectedCards[i]];
             selectedCardData.Add(GameManager.instance.selectedCards[i].CardData);
         }
-        Debug.Log(selectedCardData.Count);
         BattleHandler.SendCardSelection(selectedCardData);
 
         // Deselecte
         for (int i = 0; i < GameManager.instance.selectedCards.Count; i++)
         {
             GameManager.instance.selectedCards[i].IsSelected = false;
-            GameManager.instance.selectedCards[i].IsLock = false;
             for (int j = 0; j < GameManager.instance.selectedCards[i].transform.childCount; j++)
             {
                 GameManager.instance.selectedCards[i].transform.GetChild(j).GetComponent<Outline>().effectColor = Color.black;

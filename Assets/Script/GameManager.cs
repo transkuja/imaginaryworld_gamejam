@@ -107,23 +107,21 @@ public class GameManager : MonoBehaviour
                                 alreadySelected = true;
                             }
 
-                            cardInstance.IsLock = false;
+                            cardInstance.IsSelected = false;
                             instance.dictionarySelectedCardsValues.Remove(cardInstance);
                             for (int i = 0; i < cardInstance.transform.childCount; i++)
                             {
                                 cardInstance.transform.GetChild(i).GetComponent<Outline>().effectColor = Color.black;
                                 
                             }
-                            cardInstance.IsSelected = false;
 
                         }
 
                         if (!alreadySelected)
                         {
                             instance.dictionarySelectedCardsValues.Add(cardInstance, Convert.ToInt32(hitInfo.transform.GetComponent<Text>().text));
-                            cardInstance.IsLock = true;
-                            hitInfo.transform.GetComponent<Outline>().effectColor = new Color(.42f, .97f, 0);
                             cardInstance.IsSelected = true;
+                            hitInfo.transform.GetComponent<Outline>().effectColor = new Color(.42f, .97f, 0);
 
                             // Button Fight
                             ToogleButtonFight();
@@ -150,7 +148,7 @@ public class GameManager : MonoBehaviour
                                 {
                                     if (instance.selectedCards.Contains(cardInstance.transform.parent.GetChild(i).GetComponent<CardInstance>()))
                                     {
-                                        if (!cardInstance.transform.parent.GetChild(i).GetComponent<CardInstance>().IsLock)
+                                        if (!cardInstance.transform.parent.GetChild(i).GetComponent<CardInstance>().IsSelected)
                                         {
                                             instance.selectedCards.Remove(cardInstance.transform.parent.GetChild(i).GetComponent<CardInstance>());
                                             cardInstance.transform.parent.GetChild(i).GetComponent<CardInstance>().transform.parent.GetChild(i).transform.localPosition -= new Vector3(0, 60f, 0);
@@ -171,7 +169,6 @@ public class GameManager : MonoBehaviour
                             hitInfo.transform.localPosition -= new Vector3(0, 60f, 0);
 
                             instance.dictionarySelectedCardsValues.Remove(cardInstance);
-                            cardInstance.IsSelected = false;
                             for (int i = 0; i < cardInstance.transform.childCount; i++)
                             {
                                 cardInstance.transform.GetChild(i).GetComponent<Outline>().effectColor = Color.black;
