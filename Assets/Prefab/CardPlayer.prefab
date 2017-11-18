@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 222295625832303134}
   - component: {fileID: 114445681862552832}
   - component: {fileID: 114521862647568042}
-  - component: {fileID: 61103044899341920}
+  - component: {fileID: 65591056922004236}
   m_Layer: 8
   m_Name: CardPlayer
   m_TagString: card
@@ -41,7 +41,7 @@ GameObject:
   - component: {fileID: 222912038206485490}
   - component: {fileID: 114738785212541908}
   - component: {fileID: 114778897961982438}
-  - component: {fileID: 61705372302593600}
+  - component: {fileID: 65939680461309938}
   m_Layer: 5
   m_Name: Val4
   m_TagString: value
@@ -60,7 +60,7 @@ GameObject:
   - component: {fileID: 222727315021072048}
   - component: {fileID: 114175884231228390}
   - component: {fileID: 114528193394073792}
-  - component: {fileID: 61920048768107600}
+  - component: {fileID: 65720136555842910}
   m_Layer: 5
   m_Name: Val3
   m_TagString: value
@@ -79,7 +79,7 @@ GameObject:
   - component: {fileID: 222795079601116344}
   - component: {fileID: 114097055053760492}
   - component: {fileID: 114807111425187216}
-  - component: {fileID: 61993190578698252}
+  - component: {fileID: 65644773523582830}
   m_Layer: 5
   m_Name: Val
   m_TagString: value
@@ -98,7 +98,7 @@ GameObject:
   - component: {fileID: 222859773936448562}
   - component: {fileID: 114654023303139772}
   - component: {fileID: 114652742426183338}
-  - component: {fileID: 61609259414815446}
+  - component: {fileID: 65850188588106872}
   m_Layer: 5
   m_Name: Val2
   m_TagString: value
@@ -106,131 +106,66 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!61 &61103044899341920
-BoxCollider2D:
+--- !u!65 &65591056922004236
+BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1088464450379576}
-  m_Enabled: 1
-  m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 300, y: 300}
-  m_EdgeRadius: 0
---- !u!61 &61609259414815446
-BoxCollider2D:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1960065747571608}
   m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 75, y: 75}
-  m_EdgeRadius: 0
---- !u!61 &61705372302593600
-BoxCollider2D:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1341741053944966}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 75, y: 75}
-  m_EdgeRadius: 0
---- !u!61 &61920048768107600
-BoxCollider2D:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1345495139509056}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 75, y: 75}
-  m_EdgeRadius: 0
---- !u!61 &61993190578698252
-BoxCollider2D:
+  m_Size: {x: 300, y: 400, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &65644773523582830
+BoxCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1501718866600210}
-  m_Enabled: 1
-  m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
+  m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 75, y: 75}
-  m_EdgeRadius: 0
+  m_Size: {x: 75, y: 75, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &65720136555842910
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1345495139509056}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 75, y: 75, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &65850188588106872
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1960065747571608}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 75, y: 75, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &65939680461309938
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1341741053944966}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 75, y: 75, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &114097055053760492
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -336,6 +271,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   IsReady: 0
+  IsLock: 0
+  isHidden: 0
 --- !u!114 &114528193394073792
 MonoBehaviour:
   m_ObjectHideFlags: 1

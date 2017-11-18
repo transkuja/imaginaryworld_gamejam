@@ -86,10 +86,10 @@ public class GameManager : MonoBehaviour
         {
             if (EventSystem.current.IsPointerOverGameObject())
             {
-                RaycastHit2D hitInfo;
+                RaycastHit hitInfo;
                 clickOnValue = false;
-                hitInfo = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition) - Camera.main.transform.forward * 0.01f, Camera.main.transform.forward, ~layerMask);
-                if (hitInfo)
+                Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hitInfo, Mathf.Infinity, ~layerMask);
+                if (hitInfo.collider)
                 {
     
                     if (hitInfo.transform.tag == "value" && hitInfo.transform.gameObject.GetComponentInParent<CardInstance>().IsReady && selectedCards.Contains(hitInfo.transform.gameObject.GetComponentInParent<CardInstance>()))
@@ -135,8 +135,9 @@ public class GameManager : MonoBehaviour
                     }
                 }
 
-                hitInfo = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition) - Camera.main.transform.forward * 0.01f, Camera.main.transform.forward, layerMask);
-                if (!clickOnValue && hitInfo)
+                //hitInfo = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition) - Camera.main.transform.forward * 0.01f, Camera.main.transform.forward, layerMask);
+                Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hitInfo, Mathf.Infinity, layerMask);
+                if (!clickOnValue && hitInfo.collider)
                 {
                     if (hitInfo.transform.tag == "card" && hitInfo.transform.gameObject.GetComponent<CardInstance>().IsReady)
                     {
