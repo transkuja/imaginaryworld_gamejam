@@ -5,7 +5,7 @@ public class Card {
     #region Properties
     private int cardHealth;
 
-    public int[] combinationValues = new int[2];
+    public int[] combinationValues = new int[4];
     public const int MIN_COMBINATION_VALUE = 1;
     public const int MAX_COMBINATION_VALUE = 9;
 
@@ -38,6 +38,13 @@ public class Card {
     #endregion
 
 
+    public Card(int value1, int value2, int value3, int value4)
+    {
+        combinationValues[0] = value1;
+        combinationValues[1] = value2;
+        combinationValues[2] = value3;
+        combinationValues[3] = value4;
+    }
 
     public void HandleCardHealth(int _newValue)
     {

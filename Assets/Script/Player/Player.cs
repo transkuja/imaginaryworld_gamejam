@@ -6,15 +6,20 @@ public class Player
 {
 
     #region Properties
-
     public List<Card> playerCards = new List<Card>();
 
     public List<Card> playerDeck = new List<Card>();
 
     public int MAX_CARDS_IN_HAND = 8;
-    #endregion
 
     public int currentTurnDefenseValue;
+    #endregion
+
+
+    public void ShuffleDeck()
+    {
+        DeckUtilities.Shuffle<Card>(playerDeck);
+    }
 
     // Damage cards owned
     public void TakeDamage(int _damage)
@@ -27,5 +32,19 @@ public class Player
 
             // TODO: damage cards
         }
+    }
+
+
+    public bool DrawNextCard()
+    {
+        if (playerDeck.Count <= 0)
+            return false;
+
+        if (playerCards.Count >= MAX_CARDS_IN_HAND)
+            return false;
+
+        playerCards.Add(playerDeck[0]);
+        playerDeck.RemoveAt(0);
+        return true;
     }
 }

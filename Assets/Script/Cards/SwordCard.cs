@@ -11,4 +11,8 @@ public class SwordCard : Card {
 
     }
 
+    public SwordCard(int value1, int value2, int value3, int value4)
+        : base(value1, value2, value3, value4) {
+        damage = 1;
+    }
 }
