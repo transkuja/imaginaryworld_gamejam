@@ -75,7 +75,8 @@ public class GameManager : MonoBehaviour
 
     public void Update()
     {
-        if( BattleHandler.CurrentTurn == BattleHandler.EntityTurn.Player)
+        // & non en train de faire des choses
+        if( BattleHandler.CurrentTurn == BattleHandler.EntityTurn.Player && !UIManager.instance.processInBetweenTurn)
             MouseControls();
         if (BattleHandler.CurrentTurn == BattleHandler.EntityTurn.AI && !handled)
             HandleAI();
@@ -111,8 +112,9 @@ public class GameManager : MonoBehaviour
                             for (int i = 0; i < cardInstance.transform.childCount; i++)
                             {
                                 cardInstance.transform.GetChild(i).GetComponent<Outline>().effectColor = Color.black;
-                                hitInfo.transform.GetComponentInParent<CardInstance>().IsSelected = false;
+                                
                             }
+                            cardInstance.IsSelected = false;
 
                         }
 
@@ -121,7 +123,7 @@ public class GameManager : MonoBehaviour
                             instance.dictionarySelectedCardsValues.Add(cardInstance, Convert.ToInt32(hitInfo.transform.GetComponent<Text>().text));
                             cardInstance.IsLock = true;
                             hitInfo.transform.GetComponent<Outline>().effectColor = new Color(.42f, .97f, 0);
-                            hitInfo.transform.GetComponentInParent<CardInstance>().IsSelected = true;
+                            cardInstance.IsSelected = true;
 
                             // Button Fight
                             ToogleButtonFight();
@@ -169,6 +171,7 @@ public class GameManager : MonoBehaviour
                             hitInfo.transform.localPosition -= new Vector3(0, 60f, 0);
 
                             instance.dictionarySelectedCardsValues.Remove(cardInstance);
+                            cardInstance.IsSelected = false;
                             for (int i = 0; i < cardInstance.transform.childCount; i++)
                             {
                                 cardInstance.transform.GetChild(i).GetComponent<Outline>().effectColor = Color.black;

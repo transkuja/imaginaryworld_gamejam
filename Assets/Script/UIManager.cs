@@ -43,8 +43,9 @@ public class UIManager : MonoBehaviour {
     float timerCardPlayed = 0.0f;
 
 
-    bool resolutionUi = false;
-    bool battleHandlerNeedNextTurn = false;
+    public bool resolutionUi = false;
+    public bool battleHandlerNeedNextTurn = false;
+    public bool processInBetweenTurn = false;
 
     public void Awake()
     {
@@ -178,40 +179,6 @@ public class UIManager : MonoBehaviour {
 
     }
 
-    public void StartFightForPlayer()
-    {
-
-
-        List<Card> selectedCardData = new List<Card>();
-        for (int i = 0; i < GameManager.instance.selectedCards.Count; i++)
-        {
-            GameManager.instance.selectedCards[i].CardData.combinationPlayed = GameManager.instance.dictionarySelectedCardsValues[GameManager.instance.selectedCards[i]];
-            selectedCardData.Add(GameManager.instance.selectedCards[i].CardData);
-        }
-        Debug.Log(selectedCardData.Count);
-        BattleHandler.SendCardSelection(selectedCardData);
-
-        // Deselecte
-        for (int i=0; i<GameManager.instance.selectedCards.Count; i++)
-        {
-            for (int j = 0; j < GameManager.instance.selectedCards[i].transform.childCount; j++)
-            {
-                GameManager.instance.selectedCards[i].GetComponent<CardInstance>().IsLock = false;
-                GameManager.instance.selectedCards[i].transform.GetChild(j).GetComponent<Outline>().effectColor = Color.black;
-            }
-       
-            GameManager.instance.selectedCards[i].transform.localPosition -= new Vector3(0, 60f, 0);
-        }
-
-        // Clear
-        GameManager.instance.selectedCards.Clear();
-        GameManager.instance.dictionarySelectedCardsValues.Clear();
-
-        // Button fight
-        GameManager.instance.ToogleButtonFight();
-
-    }
-
     public void InitTmpCardPlayedPosition()
     {
         positionCardPlayed = new Vector3[3];
@@ -278,6 +245,8 @@ public class UIManager : MonoBehaviour {
         yield return new WaitForSeconds(1f);
         battleHandlerNeedNextTurn = true;
         yield return new WaitForSeconds(0.5f);
+
+        processInBetweenTurn = false;
     }
 
     public void ChangeTurn(string text)
@@ -298,13 +267,47 @@ public class UIManager : MonoBehaviour {
     public void MoveTurnText()
     {
         turnText.transform.position += Vector3.right  *0.2f* Time.deltaTime;
-        Debug.Log(Vector3.Distance(turnText.transform.position, turnTextArrival));
         if (Vector3.Distance(turnText.transform.position, turnTextArrival)< 0.2f)
         {
 
             moveTurnText = false;
             turnText.SetActive(false);
         }
+
+    }
+
+    public void StartFightForPlayer()
+    {
+
+        processInBetweenTurn = true;
+        List<Card> selectedCardData = new List<Card>();
+        for (int i = 0; i < GameManager.instance.selectedCards.Count; i++)
+        {
+            GameManager.instance.selectedCards[i].CardData.combinationPlayed = GameManager.instance.dictionarySelectedCardsValues[GameManager.instance.selectedCards[i]];
+            selectedCardData.Add(GameManager.instance.selectedCards[i].CardData);
+        }
+        Debug.Log(selectedCardData.Count);
+        BattleHandler.SendCardSelection(selectedCardData);
+
+        // Deselecte
+        for (int i = 0; i < GameManager.instance.selectedCards.Count; i++)
+        {
+            GameManager.instance.selectedCards[i].IsSelected = false;
+            GameManager.instance.selectedCards[i].IsLock = false;
+            for (int j = 0; j < GameManager.instance.selectedCards[i].transform.childCount; j++)
+            {
+                GameManager.instance.selectedCards[i].transform.GetChild(j).GetComponent<Outline>().effectColor = Color.black;
+            }
+
+            GameManager.instance.selectedCards[i].transform.localPosition -= new Vector3(0, 60f, 0);
+        }
+
+        // Clear
+        GameManager.instance.selectedCards.Clear();
+        GameManager.instance.dictionarySelectedCardsValues.Clear();
+
+        // Button fight
+        GameManager.instance.ToogleButtonFight();
 
     }
 }
