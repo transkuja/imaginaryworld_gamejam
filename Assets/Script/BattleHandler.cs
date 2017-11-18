@@ -7,6 +7,7 @@ using UnityEngine;
 public static class BattleHandler {
     public enum EntityTurn { Player, AI }
     enum Combo { None, Suite, Pairs, AllTheSame }
+    enum BattleState { Win, Lose, Continue }
     public static EntityTurn currentTurn;
     static Player playerData;
     static Player enemyData;
@@ -41,10 +42,22 @@ public static class BattleHandler {
     // This function should be call when we want the turn to change
     public static void NextTurn()
     {
-        if (currentTurn == EntityTurn.AI)
-            currentTurn = EntityTurn.Player;
-        else
-            currentTurn = EntityTurn.AI;
+        BattleState currentState = CheckForBattleEnd();
+        if (currentState == BattleState.Continue)
+        {
+            if (currentTurn == EntityTurn.AI)
+                currentTurn = EntityTurn.Player;
+            else
+                currentTurn = EntityTurn.AI;
+        }
+        else if (currentState == BattleState.Win)
+        {
+            WinProcess();
+        }
+        else if (currentState == BattleState.Lose)
+        {
+            LoseProcess();
+        }
     }
 
     static void Init()
@@ -156,4 +169,35 @@ public static class BattleHandler {
         return 1.0f;
     }
 
+    static BattleState CheckForBattleEnd()
+    {
+        if (playerData.playerCards.Count == 0)
+            return BattleState.Lose;
+        if (enemyData.playerCards.Count == 0)
+            return BattleState.Win;
+
+        return BattleState.Continue;
+    }
+
+    static void WinProcess()
+    {
+        // TODO
+
+        Reset();
+    }
+
+    static void LoseProcess()
+    {
+        // TODO
+
+        Reset();
+    }
+
+    static void Reset()
+    {
+        lastSelectionReceived = new List<Card>();
+        comboReceived = Combo.None;
+        playerData = null;
+        enemyData = null;
+    }
 }
