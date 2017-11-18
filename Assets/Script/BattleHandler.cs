@@ -92,14 +92,24 @@ public static class BattleHandler {
             i++;
         }
 
+        bool isAnAscSuite = false;
+        bool isADescSuite = false;
         bool isASuite = true;
+
         for (int j = 0; j < combinationsPlayed.Length - 1; j++)
         {
-            if (combinationsPlayed[j] != combinationsPlayed[j + 1])
+            if (combinationsPlayed[j + 1] == combinationsPlayed[j] + 1)
             {
-                if (combinationsPlayed[j] != combinationsPlayed[j + 1] - 1)
-                    isASuite = false;
+                if (!isAnAscSuite && !isADescSuite)
+                    isAnAscSuite = true;
             }
+            else if (combinationsPlayed[j + 1] == combinationsPlayed[j] - 1)
+            {
+                if (!isAnAscSuite && !isADescSuite)
+                    isADescSuite = true;
+            }
+            else
+                isASuite = false;
         }
 
         combinationsPlayed = combinationsPlayed.OrderBy(j => j).ToArray();
