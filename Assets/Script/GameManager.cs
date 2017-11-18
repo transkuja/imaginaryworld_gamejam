@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
     private EnemyInstance currentEnemy;
 
     private bool clickOnValue = false;
+    public bool handled = false;
 
     public PlayerInstance CurrentPlayer
     {
@@ -76,7 +77,7 @@ public class GameManager : MonoBehaviour
     {
         if( BattleHandler.currentTurn == BattleHandler.EntityTurn.Player)
             MouseControls();
-        if (BattleHandler.currentTurn == BattleHandler.EntityTurn.AI)
+        if (BattleHandler.currentTurn == BattleHandler.EntityTurn.AI && !handled)
             HandleAI();
     }
 
@@ -197,6 +198,7 @@ public class GameManager : MonoBehaviour
 
     public void HandleAI()
     {
+
         List<Card> selectedCardData = new List<Card>();
         List<Card> copyList = new List<Card>(currentEnemy.enemyData.playerCards);
         switch (currentEnemy.typeOfAI)
@@ -206,7 +208,7 @@ public class GameManager : MonoBehaviour
             case (AIType.Prof):
             default:
                 Debug.Log("Using random intelligence on an AI");
-                for (int i = 0; i < 4; i++)
+                for (int i = 0; i < 3; i++)
                 {
                     int randomCard = Random.Range(0, copyList.Count-1);
                     copyList.RemoveAt(randomCard);
@@ -217,10 +219,9 @@ public class GameManager : MonoBehaviour
                 }
                 break;
         }
-   
+
+        handled = true;
         BattleHandler.SendCardSelection(selectedCardData);
-        BattleHandler.CardResolution();
-        BattleHandler.NextTurn();
     }
 
 }

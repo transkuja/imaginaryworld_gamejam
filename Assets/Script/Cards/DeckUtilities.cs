@@ -5,8 +5,6 @@ using System;
 
 public static class DeckUtilities {
 
-    private static Random rng = new Random();
-
     public static void Shuffle<T>(this IList<T> list)
     {
         RNGCryptoServiceProvider provider = new RNGCryptoServiceProvider();

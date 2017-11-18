@@ -11,12 +11,16 @@ public class UIManager : MonoBehaviour {
     public GameObject HandEnemy;
     public GameObject DeckEnemy;
 
+    public GameObject CardPlayedInitialPosition;
+
     public GameObject cardPlayerPrefab;
     public GameObject cardEnemyPrefab;
 
     public GameObject buttonFight;
 
     public static UIManager instance;
+
+    public List<GameObject> tmpCardsPlayedInst = new List<GameObject>();
 
     // Player Hand
     bool updateHandPlayerPosition = false;
@@ -28,6 +32,15 @@ public class UIManager : MonoBehaviour {
     Vector3[] positionHandEnemy;
     float timerEnemy = 0.0f;
 
+    // CardPlayed
+    bool updateCardPlayedPosition = false;
+    Vector3[] positionCardPlayed;
+    float timerCardPlayed = 0.0f;
+
+
+    bool resolutionUi = false;
+    bool battleHandlerNeedNextTurn = false;
+
     public void Awake()
     {
         instance = this;
@@ -37,6 +50,7 @@ public class UIManager : MonoBehaviour {
     {
         InitHandPlayerPosition();
         InitHandEnemyPosition();
+        InitTmpCardPlayedPosition();
     }
 
     public void Update()
@@ -46,6 +60,19 @@ public class UIManager : MonoBehaviour {
 
         if (updateHandEnemyPosition)
             PlayInitHandEnemyPosition();
+
+        if (updateCardPlayedPosition)
+            PlayInitTmpCardPlayedPosition();
+
+        if (resolutionUi)
+            CardResolutionUI();
+
+        if (battleHandlerNeedNextTurn)
+        {
+            battleHandlerNeedNextTurn = false;
+            BattleHandler.NextTurn();
+        }
+ 
     }
 
     public void PlayerInitHand(List<Card> handCards)
@@ -129,7 +156,7 @@ public class UIManager : MonoBehaviour {
         for (int i = 0; i < HandEnemy.transform.childCount; i++)
         {
             HandEnemy.transform.GetChild(i).localPosition = Vector3.Lerp(HandEnemy.transform.GetChild(i).localPosition, positionHandEnemy[i], Mathf.Clamp(timerEnemy * 0.2f, 0, 1));
-            if (Vector3.Distance(HandEnemy.transform.GetChild(HandPlayer.transform.childCount - 1).localPosition, positionHandEnemy[HandEnemy.transform.childCount - 1]) <= 0.2f)
+            if (Vector3.Distance(HandEnemy.transform.GetChild(HandEnemy.transform.childCount - 1).localPosition, positionHandEnemy[HandEnemy.transform.childCount - 1]) <= 0.2f)
             {
                 updateHandEnemyPosition = false;
                 for (int j = 0; j < HandEnemy.transform.childCount; j++)
@@ -150,6 +177,7 @@ public class UIManager : MonoBehaviour {
             GameManager.instance.selectedCards[i].CardData.combinationPlayed = GameManager.instance.dictionarySelectedCardsValues[GameManager.instance.selectedCards[i]];
             selectedCardData.Add(GameManager.instance.selectedCards[i].CardData);
         }
+        Debug.Log(selectedCardData.Count);
         BattleHandler.SendCardSelection(selectedCardData);
 
         // Deselecte
@@ -157,6 +185,7 @@ public class UIManager : MonoBehaviour {
         {
             for (int j = 0; j < GameManager.instance.selectedCards[i].transform.childCount; j++)
             {
+                GameManager.instance.selectedCards[i].GetComponent<CardInstance>().IsLock = false;
                 GameManager.instance.selectedCards[i].transform.GetChild(j).GetComponent<Outline>().effectColor = Color.white;
             }
        
@@ -166,8 +195,73 @@ public class UIManager : MonoBehaviour {
         // Clear
         GameManager.instance.selectedCards.Clear();
         GameManager.instance.dictionarySelectedCardsValues.Clear();
-
-        BattleHandler.CardResolution();
-        BattleHandler.NextTurn();
     }
+
+    public void InitTmpCardPlayedPosition()
+    {
+        positionCardPlayed = new Vector3[3];
+        float spaceBetweenCards = cardPlayerPrefab.GetComponent<RectTransform>().rect.height / 15.0f;
+        for (int i = 0; i < 3; i++)
+        {
+            positionCardPlayed[i] = CardPlayedInitialPosition.transform.position + (i * cardPlayerPrefab.GetComponent<RectTransform>().rect.height * cardPlayerPrefab.GetComponent<RectTransform>().localScale.x * Vector3.up) + (i > 0 ? (spaceBetweenCards * Vector3.up * i) : Vector3.zero);
+        }
+    }
+
+    public void InitTmpCardPlayed(List<Card> tmpCardPlayed)
+    {
+        instance.tmpCardsPlayedInst.Clear();
+        for (int i = 0; i < tmpCardPlayed.Count; i++)
+        {
+            GameObject instCard = Instantiate(cardPlayerPrefab, CardPlayedInitialPosition.gameObject.transform);
+            instCard.transform.localPosition = Vector3.zero;
+            //instCard.transform.localScale = Vector3.one;
+            instCard.transform.SetParent(CardPlayedInitialPosition.transform);
+            instCard.tag = "Untagged";
+            instCard.GetComponent<CardInstance>().CardData = tmpCardPlayed[i];
+            instCard.GetComponent<CardInstance>().IsHidden = false;
+            instCard.GetComponent<CardInstance>().RefreshValues();
+
+            instance.tmpCardsPlayedInst.Add(instCard);
+        }
+        updateCardPlayedPosition = true;
+    }
+
+    public void PlayInitTmpCardPlayedPosition()
+    {
+        timerCardPlayed += Time.deltaTime;
+        for (int i = 0; i < CardPlayedInitialPosition.transform.childCount; i++)
+        {
+            CardPlayedInitialPosition.transform.GetChild(i).localPosition = Vector3.Lerp(CardPlayedInitialPosition.transform.GetChild(i).localPosition, positionCardPlayed[i], Mathf.Clamp(timerCardPlayed * 0.2f, 0, 1));
+            if (Vector3.Distance(CardPlayedInitialPosition.transform.GetChild(2).localPosition, positionCardPlayed[2]) <= 0.2f)
+            {
+                updateCardPlayedPosition = false;
+                timerCardPlayed = 0.0f;
+                resolutionUi = true;
+            }
+        }
+    }
+
+    public void DestroyTmpCardPlay()
+    {
+        for (int i = 0; i < instance.tmpCardsPlayedInst.Count; i++)
+        {
+            Destroy(instance.tmpCardsPlayedInst[i].gameObject);
+            //instance.tmpCardsPlayedInst.RemoveAt(i);
+
+        }
+    }
+
+    public void CardResolutionUI()
+    {
+        StartCoroutine(CardResotionCouroutine());
+        resolutionUi = false;
+    }
+
+    public IEnumerator CardResotionCouroutine()
+    {
+        yield return new WaitForSeconds(1f);
+        battleHandlerNeedNextTurn = true;
+        yield return new WaitForSeconds(0.5f);
+    }
+
 }

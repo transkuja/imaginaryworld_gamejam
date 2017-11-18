@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -4096,6 +4096,39 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &230345029
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 230345030}
+  m_Layer: 5
+  m_Name: CardPlayed
+  m_TagString: Untagged
+  m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &230345030
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 230345029}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 689234355}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: 100, y: -192}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0, y: 0.5}
 --- !u!1 &480746223
 GameObject:
   m_ObjectHideFlags: 0
@@ -4126,7 +4159,7 @@ RectTransform:
   - {fileID: 709406435}
   - {fileID: 1076640917}
   m_Father: {fileID: 689234355}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
@@ -7731,11 +7764,13 @@ MonoBehaviour:
   DeckPlayer: {fileID: 709406434}
   HandEnemy: {fileID: 137849173}
   DeckEnemy: {fileID: 2021829304}
+  CardPlayedInitialPosition: {fileID: 230345029}
   cardPlayerPrefab: {fileID: 1088464450379576, guid: 6b6e3506934695e4f838339d7e6b67ee,
     type: 2}
   cardEnemyPrefab: {fileID: 1823486138495250, guid: 906a6b282cd7d5a48bf75cf5a7c31005,
     type: 2}
   buttonFight: {fileID: 1076640916}
+  tmpCardsPlayedInst: []
 --- !u!114 &689234352
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7803,6 +7838,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
+  - {fileID: 230345030}
   - {fileID: 480746224}
   - {fileID: 1743585538}
   m_Father: {fileID: 0}
@@ -8909,7 +8945,7 @@ RectTransform:
   - {fileID: 137849174}
   - {fileID: 2021829305}
   m_Father: {fileID: 689234355}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}

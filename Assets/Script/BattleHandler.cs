@@ -35,6 +35,7 @@ public static class BattleHandler {
     public static void SendCardSelection(List<Card> _cardSelection)
     {
         lastSelectionReceived = _cardSelection;
+        UIManager.instance.InitTmpCardPlayed(lastSelectionReceived);
         CardResolution();
     }
 
@@ -58,6 +59,10 @@ public static class BattleHandler {
         {
             LoseProcess();
         }
+
+        UIManager.instance.DestroyTmpCardPlay();
+        GameManager.instance.handled = false;
+
     }
 
     static void Init()
