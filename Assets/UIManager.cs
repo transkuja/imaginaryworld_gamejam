@@ -53,7 +53,7 @@ public class UIManager : MonoBehaviour {
             GameObject instCard = Instantiate(cardPlayerPrefab, DeckPlayer.gameObject.transform);
             instCard.transform.localPosition = Vector3.zero;
             //instCard.transform.localScale = Vector3.one;
-            instCard.transform.parent = HandPlayer.transform;
+            instCard.transform.SetParent(HandPlayer.transform);
             instCard.GetComponent<CardInstance>().CardData = handCards[i];
             instCard.GetComponent<CardInstance>().RefreshValues();
         }
@@ -66,7 +66,7 @@ public class UIManager : MonoBehaviour {
             GameObject instCard = Instantiate(cardEnemyPrefab, DeckEnemy.gameObject.transform);
             instCard.transform.localPosition = Vector3.zero;
             //instCard.transform.localScale = Vector3.one;
-            instCard.transform.parent = HandEnemy.transform;
+            instCard.transform.SetParent(HandEnemy.transform);
             
             instCard.GetComponent<CardInstance>().CardData = handCards[i];
             instCard.GetComponent<CardInstance>().IsHidden = true;
