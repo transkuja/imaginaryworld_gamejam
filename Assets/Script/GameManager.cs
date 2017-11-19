@@ -208,11 +208,15 @@ public class GameManager : MonoBehaviour
         switch (currentEnemy.typeOfAI)
         {
             case (AIType.Bully):
+                //AIBully();
+                //break;
             case (AIType.Nerd):
+                //AINerd();
+                //break;
             case (AIType.Prof):
             default:
                 Debug.Log("Using random intelligence on an AI");
-                for (int i = 0; i < 3; i++)
+                for (int i = 0; i < Mathf.Min(3, copyList.Count); i++)
                 {
                     int randomCard = Random.Range(0, copyList.Count-1);
                     copyList.RemoveAt(randomCard);
@@ -240,5 +244,50 @@ public class GameManager : MonoBehaviour
             UIManager.instance.buttonFight.GetComponent<Button>().interactable = false;
         }
     }
+
+    //void AIBully()
+    //{
+    //    List<Card> selectedCardData = new List<Card>();
+    //    List<Card> copyList = new List<Card>();
+    //    foreach (Card c in currentEnemy.enemyData.playerCards)
+    //        copyList.Add(Utils.CopyCard(c));
+
+    //    for (int i = 0; i < 3; i++)
+    //    {
+    //        int randomCard = Random.Range(0, copyList.Count - 1);
+    //        copyList.RemoveAt(randomCard);
+    //        // Random Intelligence: Always choose the one in the left corner (should be initialized with 4 values only)
+    //        currentEnemy.enemyData.playerCards[i].combinationPlayed = currentEnemy.enemyData.playerCards[randomCard].combinationValues[0];
+    //        selectedCardData.Add(currentEnemy.enemyData.playerCards[i]);
+    //    }
+    //}
+
+    //// Based on heal cards: heal cards should be used in combo
+    //void AINerd()
+    //{
+    //    List<Card> selectedCardData = new List<Card>();
+    //    List<Card> copyList = new List<Card>();
+    //    foreach (Card c in currentEnemy.enemyData.playerCards)
+    //        copyList.Add(Utils.CopyCard(c));
+
+    //    int attempts = 5;
+    //    do
+    //    {
+    //        for (int i = 0; i < 3; i++)
+    //        {
+    //            int randomCard = Random.Range(0, copyList.Count - 1);
+    //            copyList.RemoveAt(randomCard);
+    //            // Random Intelligence: Always choose the one in the left corner (should be initialized with 4 values only)
+    //            currentEnemy.enemyData.playerCards[i].combinationPlayed = currentEnemy.enemyData.playerCards[randomCard].combinationValues[0];
+    //            selectedCardData.Add(currentEnemy.enemyData.playerCards[i]);
+    //        }
+    //        attempts--;
+    //    }
+    //    while(BattleHandler.ComboAnalysis(selectedCardData) == BattleHandler.Combo.None || attempts == 0);
+
+
+
+    //}
+
 
 }

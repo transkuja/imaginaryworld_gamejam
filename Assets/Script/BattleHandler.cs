@@ -223,6 +223,70 @@ public static class BattleHandler {
 
     }
 
+    //public static Combo ComboAnalysis(List<Card> _cardsToAnalyzed)
+    //{
+    //    if (_cardsToAnalyzed == null || _cardsToAnalyzed.Count == 0)
+    //    {
+    //        Debug.LogWarning("Selection received is empty!!!!!");
+    //        return Combo.None;
+    //    }
+
+    //    int[] combinationsPlayed = new int[_cardsToAnalyzed.Count];
+    //    int i = 0;
+    //    foreach (Card c in _cardsToAnalyzed)
+    //    {
+    //        combinationsPlayed[i] = c.combinationPlayed;
+    //        i++;
+    //    }
+
+    //    bool isAnAscSuite = false;
+    //    bool isADescSuite = false;
+    //    bool isASuite = true;
+
+    //    for (int j = 0; j < combinationsPlayed.Length - 1; j++)
+    //    {
+    //        if (combinationsPlayed[j + 1] == combinationsPlayed[j] + 1)
+    //        {
+    //            if (!isAnAscSuite && !isADescSuite)
+    //                isAnAscSuite = true;
+
+    //            if (isADescSuite) isASuite = false;
+    //        }
+    //        else if (combinationsPlayed[j + 1] == combinationsPlayed[j] - 1)
+    //        {
+    //            if (!isAnAscSuite && !isADescSuite)
+    //                isADescSuite = true;
+
+    //            if (isAnAscSuite) isASuite = false;
+    //        }
+    //        else
+    //            isASuite = false;
+    //    }
+
+    //    combinationsPlayed = combinationsPlayed.OrderBy(j => j).ToArray();
+
+    //    bool containsAPair = false;
+    //    bool areAllTheSame = true;
+
+    //    for (int j = 0; j < combinationsPlayed.Length - 1; j++)
+    //    {
+    //        if (combinationsPlayed[j] != combinationsPlayed[j + 1])
+    //            areAllTheSame = false;
+    //        else
+    //            containsAPair = true;
+    //    }
+
+    //    if (areAllTheSame)
+    //        return Combo.AllTheSame;
+    //    else if (containsAPair)
+    //        return Combo.Pairs;
+
+    //    if (isASuite) return Combo.Suite;
+
+    //    if (!isASuite && !containsAPair && !areAllTheSame)
+    //        return Combo.None;
+    //}
+
     static void ApplyCardEffects()
     {
         int rawDamage = 0;

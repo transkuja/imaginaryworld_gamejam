@@ -27,6 +27,8 @@ public class UIManager : MonoBehaviour {
     public GameObject ComboPlayer;
     public GameObject ComboEnemy;
 
+    public GameObject CardAttackAnimHolder;
+
 
     public GameObject turnText;
     private Vector3 turnTextOrigin;
@@ -397,9 +399,15 @@ public class UIManager : MonoBehaviour {
     {
         if (player == GameManager.instance.CurrentPlayer.playerData)
         {
-            // Add Animation instead of direct changes
+            GameObject attackAnim = Instantiate(CardAttackAnimHolder, HandPlayer.transform.parent);
+            attackAnim.transform.position = HandPlayer.transform.GetChild(cardIndex).position;
+            attackAnim.transform.localScale = Vector3.one;
+            attackAnim.GetComponent<Animator>().SetTrigger("attack");
+            Destroy(attackAnim, 0.6f);
+
             if (!destroyed)
             {
+                
                 HandPlayer.transform.GetChild(cardIndex).GetComponent<CardInstance>().RefreshValues();
                 if (player.playerCards[cardIndex].CardHealth == 2)
                     HandPlayer.transform.GetChild(cardIndex).GetComponent<Image>().material = GameManager.instance.MaterialUtils.damagedMaterial1;
@@ -414,7 +422,12 @@ public class UIManager : MonoBehaviour {
         }
         else if (player == GameManager.instance.CurrentEnemy.enemyData)
         {
-            // Add Animation instead of direct changes
+            GameObject attackAnim = Instantiate(CardAttackAnimHolder, HandEnemy.transform.parent);
+            attackAnim.transform.position = HandEnemy.transform.GetChild(cardIndex).position;
+            attackAnim.transform.localScale = Vector3.one;
+            attackAnim.GetComponent<Animator>().SetTrigger("attack");
+            Destroy(attackAnim, 0.6f);
+
             if (!destroyed)
             {
                 HandEnemy.transform.GetChild(cardIndex).GetComponent<CardInstance>().RefreshValues();
