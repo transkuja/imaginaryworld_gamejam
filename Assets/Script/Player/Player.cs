@@ -17,6 +17,8 @@ public class Player
     public static int MAX_CARDS_IN_HAND = 8;
 
     public int currentTurnDefenseValue;
+	public int lootQuantity;
+
     #endregion
 
 

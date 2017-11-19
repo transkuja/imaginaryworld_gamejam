@@ -24,7 +24,10 @@ public class GameManager : MonoBehaviour
 
     private bool clickOnValue = false;
     public bool handled = false;
-
+	
+    public GameObject WinPanel;
+    public GameObject LosePanel;
+	
     public PlayerInstance CurrentPlayer
     {
         get

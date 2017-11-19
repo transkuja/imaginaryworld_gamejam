@@ -13,6 +13,7 @@ public class EnemyInstance: MonoBehaviour {
     // Use this for initialization
     void Start () {
         enemyData = new Player();
+        enemyData.lootQuantity = 5;
 
         InitDeck();
 
