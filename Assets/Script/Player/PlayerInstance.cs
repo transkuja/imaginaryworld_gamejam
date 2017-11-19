@@ -73,7 +73,19 @@ public class PlayerInstance : MonoBehaviour {
     {
         for ( int i = 0; i < Player.MAX_CARDS_IN_HAND; i++)
         {
-            playerData.DrawNextCard();
+            DrawCard();
+        }
+    }
+
+    public void DrawCard()
+    {
+        if (playerData.DrawNextCard())
+        {
+            UIManager.instance.RefreshNbCardLeftPlayer(playerData.playerDeck.Count);
+        }
+        else
+        {
+            Destroy(UIManager.instance.DeckPlayer.gameObject);
         }
     }
 }

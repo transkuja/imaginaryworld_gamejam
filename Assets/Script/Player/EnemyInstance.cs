@@ -56,6 +56,9 @@ public class EnemyInstance: MonoBehaviour {
             enemyData.playerDeck.Add(new SwordCard(1, 2, 3, 4));
             enemyData.playerDeck.Add(new SwordCard(1, 2, 3, 4));
             enemyData.playerDeck.Add(new SwordCard(1, 2, 3, 4));
+            enemyData.playerDeck.Add(new SwordCard(1, 2, 3, 4));
+            enemyData.playerDeck.Add(new SwordCard(1, 2, 3, 4));
+            enemyData.playerDeck.Add(new SwordCard(1, 2, 3, 4));
             enemyData.playerDeck.Add(new ShieldCard(1, 2, 3, 4));
         }
     }
@@ -64,9 +67,22 @@ public class EnemyInstance: MonoBehaviour {
     {
         for ( int i = 0; i < Player.MAX_CARDS_IN_HAND; i++)
         {
-            enemyData.DrawNextCard();
+            DrawCard();
         }
 
+    }
+
+    public void DrawCard()
+    {
+        if (enemyData.DrawNextCard())
+        {
+         
+            UIManager.instance.RefreshNbCardLeftEnemy(enemyData.playerDeck.Count);
+        }
+        else
+        {
+            Destroy(UIManager.instance.DeckEnemy.gameObject);
+        }
     }
 
 }

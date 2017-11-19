@@ -8,7 +8,7 @@ public class UIManager : MonoBehaviour {
 
     public GameObject HandPlayer;
     public GameObject DeckPlayer;
-
+    
     public GameObject HandEnemy;
     public GameObject DeckEnemy;
 
@@ -363,4 +363,15 @@ public class UIManager : MonoBehaviour {
         GameManager.instance.ToogleButtonFight();
 
     }
+
+    public void RefreshNbCardLeftPlayer(int newValue)
+    {
+        DeckPlayer.GetComponentInChildren<Text>().text = "" + newValue;
+    }
+
+    public void RefreshNbCardLeftEnemy(int newValue)
+    {
+        DeckEnemy.GetComponentInChildren<Text>().text = "" + newValue;
+    }
+
 }
