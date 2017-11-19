@@ -4,15 +4,6 @@ using UnityEngine;
 using System;
 
 public class EnemyInstance: MonoBehaviour {
-    [Serializable]
-    public struct CardInfo
-    {
-        public CardType cardType;
-        public int value1;
-        public int value2;
-        public int value3;
-        public int value4;
-    }
 
     public AIType typeOfAI;
     public Player enemyData;
@@ -24,9 +15,9 @@ public class EnemyInstance: MonoBehaviour {
         enemyData = new Player();
 
         InitDeck();
+
         enemyData.ShuffleDeck();
         InitHand();
-
 
         UIManager.instance.EnemyInitHand(enemyData.playerCards);
 

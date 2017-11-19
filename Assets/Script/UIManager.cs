@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -115,6 +116,8 @@ public class UIManager : MonoBehaviour {
             instCard.GetComponent<CardInstance>().CardData = handCards[i];
             instCard.GetComponent<CardInstance>().IsHidden = true;
             instCard.GetComponent<CardInstance>().RefreshValues();
+
+
         }
     }
 
@@ -204,10 +207,18 @@ public class UIManager : MonoBehaviour {
             //instCard.transform.localScale = Vector3.one;
             instCard.transform.SetParent(CardPlayedInitialPosition.transform);
             instCard.tag = "Untagged";
+            // TODO : MUST DO A COPY CONSTRUCTOR
             instCard.GetComponent<CardInstance>().CardData = tmpCardPlayed[i];
+            for (int j=0; j< 4; j++)
+            {
+                if (tmpCardPlayed[i].combinationValues[j] == instCard.GetComponent<CardInstance>().CardData.combinationPlayed)
+                {
+                    instCard.GetComponent<CardInstance>().gameObject.transform.GetChild(j).GetComponent<Outline>().effectColor = new Color(.42f, .97f, 0);
+                }
+           
+            }
             instCard.GetComponent<CardInstance>().IsHidden = false;
             instCard.GetComponent<CardInstance>().RefreshValues();
-
             instance.tmpCardsPlayedInst.Add(instCard);
         }
         updateCardPlayedPosition = true;

@@ -4,16 +4,21 @@ using UnityEngine;
 using System;
 
 public enum CardType { Sword, Shield }
+
+[Serializable]
+public struct CardInfo
+{
+    public CardType cardType;
+    public int value1;
+    public int value2;
+    public int value3;
+    public int value4;
+}
+
+
+
 public class PlayerInstance : MonoBehaviour {
-    [Serializable]
-    public struct CardInfo
-    {
-        public CardType cardType;
-        public int value1;
-        public int value2;
-        public int value3;
-        public int value4;
-    }
+
 
     public Player playerData;
 
