@@ -63,6 +63,31 @@ public class Player
         }
     }
 
+    // Heal cards owned
+    public void HealCards(int _healValue)
+    {
+        if (_healValue > 0)
+        {
+            List<Card> tmp = new List<Card>();
+            for (int j = 0; j < playerCards.Count; j++)
+            {
+                if (playerCards[j].CardHealth < playerCards[j].maxHealth)
+                    tmp.Add(playerCards[j]);
+            }
+
+            for (int i = 0; i < _healValue; i++)
+            {
+                if (tmp.Count == 0)
+                    break;
+
+                int healedCardIndex = Random.Range(0, tmp.Count);
+                tmp[healedCardIndex].CardHealth++;
+                if (tmp[healedCardIndex].CardHealth == tmp[healedCardIndex].maxHealth)
+                    tmp.RemoveAt(healedCardIndex);
+            }
+        }
+    }
+
 
     public bool DrawNextCard()
     {

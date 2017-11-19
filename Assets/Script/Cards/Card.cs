@@ -4,6 +4,7 @@ public class Card {
     
     #region Properties
     private int cardHealth;
+    public int maxHealth = 3;
 
     public int[] combinationValues = new int[4];
     public const int MIN_COMBINATION_VALUE = 1;

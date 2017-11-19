@@ -65,33 +65,16 @@ public static class BattleHandler {
 
         
         foreach (Card c in _playerData.playerDeck)
-        {
-            if (c.GetType() == typeof(ShieldCard))
-                initialPlayerDeckStatus.Add(new ShieldCard((ShieldCard)c));
-            if (c.GetType() == typeof(SwordCard))
-                initialPlayerDeckStatus.Add(new SwordCard((SwordCard)c));
-        }
+            initialPlayerDeckStatus.Add(Utils.CopyCard(c));
         foreach (Card c in _playerData.playerCards)
-        {
-            if (c.GetType() == typeof(ShieldCard))
-                initialPlayerDeckStatus.Add(new ShieldCard((ShieldCard)c));
-            if (c.GetType() == typeof(SwordCard))
-                initialPlayerDeckStatus.Add(new SwordCard((SwordCard)c));
-        }
+            initialPlayerDeckStatus.Add(Utils.CopyCard(c));
+
         foreach (Card c in _enemyData.playerDeck)
-        {
-            if (c.GetType() == typeof(ShieldCard))
-                initialEnemyDeckStatus.Add(new ShieldCard((ShieldCard)c));
-            if (c.GetType() == typeof(SwordCard))
-                initialEnemyDeckStatus.Add(new SwordCard((SwordCard)c));
-        }
+            initialEnemyDeckStatus.Add(Utils.CopyCard(c));
+
         foreach (Card c in _enemyData.playerCards)
-        {
-            if (c.GetType() == typeof(ShieldCard))
-                initialEnemyDeckStatus.Add(new ShieldCard((ShieldCard)c));
-            if (c.GetType() == typeof(SwordCard))
-                initialEnemyDeckStatus.Add(new SwordCard((SwordCard)c));
-        }
+            initialEnemyDeckStatus.Add(Utils.CopyCard(c));
+        
         // ask the AI for the card selection
         if (CurrentTurn == EntityTurn.AI)
             Debug.Log("AI is playing ...");
@@ -164,12 +147,8 @@ public static class BattleHandler {
     {
         playerData.playerDeck = new List<Card>();
         foreach (Card c in initialPlayerDeckStatus)
-        {
-            if (c.GetType() == typeof(ShieldCard))
-                playerData.playerDeck.Add(new ShieldCard((ShieldCard)c));
-            if (c.GetType() == typeof(SwordCard))
-                playerData.playerDeck.Add(new SwordCard((SwordCard)c));
-        }
+            playerData.playerDeck.Add(Utils.CopyCard(c));
+
         GameObject.Find("PersistentPlayerData").GetComponent<PersistentPlayerData>().PlayerData = playerData;
 
         Reset();
@@ -247,6 +226,7 @@ public static class BattleHandler {
     static void ApplyCardEffects()
     {
         int rawDamage = 0;
+        int rawHeal = 0;
         float comboMultiplier = GetMultiplierFromCombo(comboReceived);
 
         foreach (Card c in lastSelectionReceived)
@@ -261,10 +241,17 @@ public static class BattleHandler {
                 else
                     enemyData.currentTurnDefenseValue += (int)(((ShieldCard)c).defenseValue * comboMultiplier);
             }
-        }
-        int effectiveDamage = (int)(rawDamage * comboMultiplier);
 
+            if (c.GetType() == typeof(HealCard))
+                rawHeal += ((HealCard)c).healValue;
+
+        }
+
+        int effectiveDamage = (int)(rawDamage * comboMultiplier);
         DamageOpponentCards(effectiveDamage);
+
+        int effectiveHeal = (int)(rawHeal * comboMultiplier);
+        HealCards(effectiveHeal);
 
         if (CurrentTurn == EntityTurn.Player)
             UIManager.instance.RefreshPlayerInfo(effectiveDamage, playerData.currentTurnDefenseValue);
@@ -279,6 +266,14 @@ public static class BattleHandler {
             enemyData.TakeDamage(_effectiveDamage);
         else
             playerData.TakeDamage(_effectiveDamage);
+    }
+
+    static void HealCards(int _effectiveHeal)
+    {
+        if (CurrentTurn == EntityTurn.Player)
+            playerData.HealCards(_effectiveHeal);
+        else
+            enemyData.HealCards(_effectiveHeal);
     }
 
     static float GetMultiplierFromCombo(Combo _combo)
@@ -326,39 +321,22 @@ public static class BattleHandler {
 
         List<Card> deckRebuild = new List<Card>();
         foreach (Card c in playerData.playerDeck)
-        {
-            if (c.GetType() == typeof(ShieldCard))
-                deckRebuild.Add(new ShieldCard((ShieldCard)c));
-            if (c.GetType() == typeof(SwordCard))
-                deckRebuild.Add(new SwordCard((SwordCard)c));
-        }
-        foreach (Card c in playerData.playerCards)
-        {
-            if (c.GetType() == typeof(ShieldCard))
-                deckRebuild.Add(new ShieldCard((ShieldCard)c));
-            if (c.GetType() == typeof(SwordCard))
-                deckRebuild.Add(new SwordCard((SwordCard)c));
-        }
+            deckRebuild.Add(Utils.CopyCard(c));
 
+        foreach (Card c in playerData.playerCards)
+            deckRebuild.Add(Utils.CopyCard(c));
+            
         List<Card> computedLoot = ComputeLoot();
 
         UIManager.instance.LootInit(computedLoot);
         UIManager.instance.UpdateLootPosition(computedLoot.Count);
         foreach (Card c in computedLoot)
-        {
-            if (c.GetType() == typeof(ShieldCard))
-                deckRebuild.Add(new ShieldCard((ShieldCard)c));
-            if (c.GetType() == typeof(SwordCard))
-                deckRebuild.Add(new SwordCard((SwordCard)c));
-        }
+            deckRebuild.Add(Utils.CopyCard(c));
+
         playerData.playerDeck = new List<Card>();
         foreach (Card c in deckRebuild)
-        {
-            if (c.GetType() == typeof(ShieldCard))
-                playerData.playerDeck.Add(new ShieldCard((ShieldCard)c));
-            if (c.GetType() == typeof(SwordCard))
-                playerData.playerDeck.Add(new SwordCard((SwordCard)c));
-        }
+            playerData.playerDeck.Add(Utils.CopyCard(c));
+
         GameObject.Find("PersistentPlayerData").GetComponent<PersistentPlayerData>().PlayerData = playerData;
 
         Reset();
@@ -370,10 +348,7 @@ public static class BattleHandler {
         for (int i = 0; i < enemyData.lootQuantity; i++)
         {
             Card card = initialEnemyDeckStatus[Random.Range(0, initialEnemyDeckStatus.Count)];
-            if (card.GetType() == typeof(ShieldCard))
-                returnLoot.Add(new ShieldCard((ShieldCard)card));
-            if (card.GetType() == typeof(SwordCard))
-                returnLoot.Add(new SwordCard((SwordCard)card));
+            returnLoot.Add(Utils.CopyCard(card));
         }
         return returnLoot;
     }
