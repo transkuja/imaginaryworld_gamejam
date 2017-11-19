@@ -18,6 +18,9 @@ public class UIManager : MonoBehaviour {
     public GameObject cardEnemyPrefab;
 
     public GameObject buttonFight;
+    public GameObject AttDefPlayer;
+    public GameObject AttDefEnemy;
+
 
     public GameObject turnText;
     private Vector3 turnTextOrigin;
@@ -113,18 +116,6 @@ public class UIManager : MonoBehaviour {
     public void EnemyInitHand(List<Card> handCards)
     {
         InitHand(handCards, cardEnemyPrefab, true, HandEnemy, DeckEnemy);
-    }
-
-    public void UpdateHandPosition(Vector3[] position, GameObject CardPrefab, Vector3 direction, GameObject origin, bool updateHandPosition)
-    {
-        float spaceBetweenCards = CardPrefab.GetComponent<RectTransform>().rect.width / 15.0f;
-        for (int i = 0; i < position.Length; i++)
-        {
-            position[i] = origin.transform.position + (i * CardPrefab.GetComponent<RectTransform>().rect.width * CardPrefab.GetComponent<RectTransform>().localScale.x * direction) + (i > 0 ? (spaceBetweenCards * direction * i) : Vector3.zero);
-        }
-
-        updateHandPosition = true;
-
     }
 
     public void UpdateHandPlayerPosition()
@@ -262,10 +253,20 @@ public class UIManager : MonoBehaviour {
 
     public IEnumerator CardResotionCouroutine()
     {
+        if (BattleHandler.CurrentTurn == BattleHandler.EntityTurn.Player)
+            AttDefPlayer.SetActive(true);
+        else
+            AttDefEnemy.SetActive(true);
+
         yield return new WaitForSeconds(1f);
         battleHandlerNeedNextTurn = true;
         yield return new WaitForSeconds(0.5f);
 
+        if (BattleHandler.CurrentTurn == BattleHandler.EntityTurn.Player)
+        {
+            AttDefPlayer.SetActive(false);
+            AttDefEnemy.SetActive(false);
+        }
         processInBetweenTurn = false;
     }
 
@@ -374,6 +375,15 @@ public class UIManager : MonoBehaviour {
         // Button fight
         GameManager.instance.ToogleButtonFight();
 
+    }
+
+    public void RefreshPlayerInfo(int newValueAtt, int newValueDef)
+    {
+        AttDefPlayer.GetComponentInChildren<Text>().text = "Att: " + newValueAtt + "\nDef: " + newValueDef;
+    }
+    public void RefreshEnemyInfo(int newValueAtt, int newValueDef)
+    {
+        AttDefEnemy.GetComponentInChildren<Text>().text = "Att: " + newValueAtt + "\nDef: " + newValueDef;
     }
 
     public void RefreshNbCardLeftPlayer(int newValue)

@@ -207,10 +207,14 @@ public static class BattleHandler {
                     enemyData.currentTurnDefenseValue += (int)(((ShieldCard)c).defenseValue * comboMultiplier);
             }
         }
+        int effectiveDamage = (int)(rawDamage * comboMultiplier);
+        DamageOpponentCards(effectiveDamage);
 
+        if (CurrentTurn == EntityTurn.Player)
+            UIManager.instance.RefreshPlayerInfo(effectiveDamage, playerData.currentTurnDefenseValue);
+        else
+            UIManager.instance.RefreshEnemyInfo(effectiveDamage, enemyData.currentTurnDefenseValue);
 
-        DamageOpponentCards((int)(rawDamage * comboMultiplier));
-        
     }
 
     static void DamageOpponentCards(int _effectiveDamage)
