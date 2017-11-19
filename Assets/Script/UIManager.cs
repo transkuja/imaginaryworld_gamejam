@@ -110,6 +110,17 @@ public class UIManager : MonoBehaviour {
         }
     }
 
+   public void CreateCard(Card card, GameObject CardPrefab, bool isHidden, GameObject Parent, GameObject initialParent)
+    {
+        GameObject instCard = Instantiate(CardPrefab, initialParent.transform);
+        instCard.transform.localPosition = Vector3.zero;
+        //instCard.transform.localScale = Vector3.one;
+        instCard.transform.SetParent(Parent.transform);
+        instCard.GetComponent<CardInstance>().CardData = card;
+        instCard.GetComponent<CardInstance>().IsHidden = isHidden;
+        instCard.GetComponent<CardInstance>().RefreshValues();
+    }
+
     public void PlayerInitHand(List<Card> handCards)
     {
         InitHand(handCards, cardPlayerPrefab, false, HandPlayer, DeckPlayer);
@@ -122,8 +133,13 @@ public class UIManager : MonoBehaviour {
 
     public void UpdateHandPlayerPosition()
     {
-        positionHandPlayer = new Vector3[GameManager.instance.CurrentPlayer.playerData.playerCards.Count];
+        int cardsCount = GameManager.instance.CurrentPlayer.playerData.playerCards.Count;
+        positionHandPlayer = new Vector3[cardsCount];
         float spaceBetweenCards = cardPlayerPrefab.GetComponent<RectTransform>().rect.width / 15.0f;
+        while(HandPlayer.transform.childCount < cardsCount)
+        {
+            CreateCard(GameManager.instance.CurrentPlayer.playerData.playerCards[HandPlayer.transform.childCount], cardPlayerPrefab, false, HandPlayer, DeckPlayer);
+        }
         for (int i = 0; i < positionHandPlayer.Length; i++)
         {
             positionHandPlayer[i] = HandPlayer.transform.position + (i * cardPlayerPrefab.GetComponent<RectTransform>().rect.width * cardPlayerPrefab.GetComponent<RectTransform>().localScale.x * Vector3.right) + (i > 0 ? (spaceBetweenCards * Vector3.right * i) : Vector3.zero);
@@ -135,8 +151,13 @@ public class UIManager : MonoBehaviour {
     public void UpdateHandEnemyPosition()
     {
         // TODO enemy card in hand
-        positionHandEnemy = new Vector3[GameManager.instance.CurrentEnemy.enemyData.playerCards.Count];
+        int cardsCount = GameManager.instance.CurrentEnemy.enemyData.playerCards.Count;
+        positionHandEnemy = new Vector3[cardsCount];
         float spaceBetweenCards = cardEnemyPrefab.GetComponent<RectTransform>().rect.width / 15.0f;
+        while (HandEnemy.transform.childCount < cardsCount)
+        {
+            CreateCard(GameManager.instance.CurrentEnemy.enemyData.playerCards[HandEnemy.transform.childCount], cardEnemyPrefab, true, HandEnemy, DeckEnemy);
+        }
         for (int i = 0; i < positionHandEnemy.Length; i++)
         {
             positionHandEnemy[i] = HandEnemy.transform.position + (i * cardEnemyPrefab.GetComponent<RectTransform>().rect.width * cardEnemyPrefab.GetComponent<RectTransform>().localScale.x * Vector3.left) + (i > 0 ? (spaceBetweenCards * Vector3.left*i) : Vector3.zero);
@@ -413,5 +434,21 @@ public class UIManager : MonoBehaviour {
     {
         DeckEnemy.GetComponentInChildren<Text>().text = "" + newValue;
     }
+
+    public void RefreshNbCardLeftPlayer()
+    {
+        if (!GameManager.instance.CurrentPlayer)
+
+            return;
+        DeckPlayer.GetComponentInChildren<Text>().text = "" + GameManager.instance.CurrentPlayer.playerData.playerDeck.Count;
+    }
+
+    public void RefreshNbCardLeftEnemy()
+    {
+        if (!GameManager.instance.CurrentEnemy)
+            return;
+        DeckEnemy.GetComponentInChildren<Text>().text = "" + GameManager.instance.CurrentEnemy.enemyData.playerDeck.Count;
+    }
+
 
 }

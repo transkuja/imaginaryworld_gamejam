@@ -32,9 +32,19 @@ public static class BattleHandler {
             {
                 case EntityTurn.Player:
                     UIManager.instance.ChangeTurn("Player");
+                    while(GameManager.instance.CurrentPlayer.playerData.playerCards.Count < Player.MAX_CARDS_IN_HAND && GameManager.instance.CurrentPlayer.playerData.playerDeck.Count > 0)
+                    {
+                        GameManager.instance.CurrentPlayer.DrawCard();
+                        UIManager.instance.UpdateHandPlayerPosition();
+                    }
                     break;
                 case EntityTurn.AI:
                     UIManager.instance.ChangeTurn("Bob");
+                    while (GameManager.instance.CurrentEnemy.enemyData.playerCards.Count < Player.MAX_CARDS_IN_HAND && GameManager.instance.CurrentEnemy.enemyData.playerDeck.Count > 0)
+                    {
+                        GameManager.instance.CurrentEnemy.DrawCard();
+                        UIManager.instance.UpdateHandEnemyPosition();
+                    }
                     break;
 
             }
