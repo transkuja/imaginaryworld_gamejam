@@ -147,7 +147,7 @@ public class UIManager : MonoBehaviour {
 
     public void LootInit(List<Card> handCards)
     {
-        InitHand(handCards, cardPlayerPrefab, false, GameManager.instance.WinPanel.transform.GetChild(1).gameObject, GameManager.instance.WinPanel.transform.GetChild(1).gameObject);
+        InitHand(handCards, cardPlayerPrefab, false, GameManager.instance.WinPanel.transform.GetChild(2).gameObject, GameManager.instance.WinPanel.transform.GetChild(2).gameObject);
     }
 
     public void UpdateHandPlayerPosition()
@@ -173,7 +173,7 @@ public class UIManager : MonoBehaviour {
         float spaceBetweenCards = cardPlayerPrefab.GetComponent<RectTransform>().rect.width / 15.0f;
         for (int i = 0; i < positionLoot.Length; i++)
         {
-            positionLoot[i] = GameManager.instance.WinPanel.transform.GetChild(1).position + (i * cardPlayerPrefab.GetComponent<RectTransform>().rect.width * cardPlayerPrefab.GetComponent<RectTransform>().localScale.x * Vector3.right) + (i > 0 ? (spaceBetweenCards * Vector3.right * i) : Vector3.zero);
+            positionLoot[i] = GameManager.instance.WinPanel.transform.GetChild(2).position + (i * cardPlayerPrefab.GetComponent<RectTransform>().rect.width * cardPlayerPrefab.GetComponent<RectTransform>().localScale.x * Vector3.right) + (i > 0 ? (spaceBetweenCards * Vector3.right * i) : Vector3.zero);
         }
 
         updateLootPosition = true;
@@ -219,7 +219,7 @@ public class UIManager : MonoBehaviour {
 
     public void PlayInitLootPosition()
     {
-        GameObject origin = GameManager.instance.WinPanel.transform.GetChild(1).gameObject;
+        GameObject origin = GameManager.instance.WinPanel.transform.GetChild(2).gameObject;
 
         timerLoot += Time.deltaTime;
         for (int i = 0; i < origin.transform.childCount; i++)

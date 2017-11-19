@@ -1,21 +1,24 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class LosePanel : MonoBehaviour {
+public class PauseMenu : MonoBehaviour {
 
     public void BackToMenu()
     {
+        Time.timeScale = 1.0f;
         BattleHandler.RestoreDecks();
         UIManager.instance.processInBetweenTurn = false;
         UIManager.instance.HandEnemy.SetActive(true);
         UIManager.instance.HandPlayer.SetActive(true);
+
         SceneManager.LoadScene(0);
     }
 
     public void Retry()
     {
+        Time.timeScale = 1.0f;
         BattleHandler.RestoreDecks();
         UIManager.instance.processInBetweenTurn = false;
         UIManager.instance.HandEnemy.SetActive(true);
@@ -28,9 +31,9 @@ public class LosePanel : MonoBehaviour {
         SceneManager.LoadScene(1);
     }
 
-    public void AddToDeck()
+    public void Resume()
     {
-        GameManager.instance.WinPanel.SetActive(false);
-        SceneManager.LoadScene(1);
+        Time.timeScale = 1.0f;
+        gameObject.SetActive(false);
     }
 }

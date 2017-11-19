@@ -28,6 +28,8 @@ public class GameManager : MonoBehaviour
 	
     public GameObject WinPanel;
     public GameObject LosePanel;
+
+    public GameObject PauseMenu;
 	
     public PlayerInstance CurrentPlayer
     {
@@ -90,6 +92,11 @@ public class GameManager : MonoBehaviour
             MouseControls();
         if (BattleHandler.CurrentTurn == BattleHandler.EntityTurn.AI && !handled)
             HandleAI();
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            PauseMenu.SetActive(!PauseMenu.activeSelf);
+            Time.timeScale = Time.time <= 0.1f ? 1.0f : 0.1f;
+        }
     }
 
     public void MouseControls()
