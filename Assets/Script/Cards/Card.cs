@@ -49,6 +49,15 @@ public class Card {
         cardHealth = health;
     }
 
+    public Card(Card c)
+    {
+        combinationValues[0] = c.combinationValues[0];
+        combinationValues[1] = c.combinationValues[1];
+        combinationValues[2] = c.combinationValues[2];
+        combinationValues[3] = c.combinationValues[3];
+        cardHealth = c.cardHealth;
+    }
+
     public void HandleCardHealth(int _newValue)
     {
         cardHealth += _newValue;

@@ -298,6 +298,7 @@ public class UIManager : MonoBehaviour {
         for (int i = 0; i < CardPlayedInitialPosition.transform.childCount; i++)
         {
             CardPlayedInitialPosition.transform.GetChild(i).localPosition = Vector3.Lerp(CardPlayedInitialPosition.transform.GetChild(i).localPosition, positionCardPlayed[i], Mathf.Clamp(timerCardPlayed * 0.2f, 0, 1));
+            
             if (Vector3.Distance(CardPlayedInitialPosition.transform.GetChild(2).localPosition, positionCardPlayed[2]) <= 0.2f)
             {
                 updateCardPlayedPosition = false;

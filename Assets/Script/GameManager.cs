@@ -67,6 +67,12 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        if (GameObject.Find("PersistentPlayerData") == null)
+        {
+            GameObject go = new GameObject("PersistentPlayerData");
+            go.AddComponent<PersistentPlayerData>();
+        }
+        
     }
 
     // Use this for initialization

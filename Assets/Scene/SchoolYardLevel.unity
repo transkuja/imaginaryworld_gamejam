@@ -8581,10 +8581,10 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 224980618634486344, guid: 7cedd6ca8fede634f950b9ba2d967827,
+    - target: {fileID: 114398559471835052, guid: 7cedd6ca8fede634f950b9ba2d967827,
         type: 2}
-      propertyPath: m_RootOrder
-      value: 6
+      propertyPath: m_RaycastTarget
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7cedd6ca8fede634f950b9ba2d967827, type: 2}
@@ -8712,6 +8712,11 @@ Prefab:
       value: 
       objectReference: {fileID: 12800000, guid: 182bf279743072847a26157289c714b0,
         type: 3}
+    - target: {fileID: 114553825727432962, guid: fb4f2aa983d55eb489c8a1df23c1eda2,
+        type: 2}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: fb4f2aa983d55eb489c8a1df23c1eda2, type: 2}
   m_IsPrefabParent: 0
@@ -11098,6 +11103,11 @@ Prefab:
       value: 
       objectReference: {fileID: 12800000, guid: 182bf279743072847a26157289c714b0,
         type: 3}
+    - target: {fileID: 114852394315882932, guid: b9281634e4d0f3e4793588de6f24d235,
+        type: 2}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b9281634e4d0f3e4793588de6f24d235, type: 2}
   m_IsPrefabParent: 0
@@ -11489,10 +11499,10 @@ Prefab:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 224263791919554802, guid: d533ff038d755b84993316cf412620ca,
+    - target: {fileID: 114237019915132980, guid: d533ff038d755b84993316cf412620ca,
         type: 2}
-      propertyPath: m_RootOrder
-      value: 7
+      propertyPath: m_RaycastTarget
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d533ff038d755b84993316cf412620ca, type: 2}

@@ -30,10 +30,17 @@ public class PlayerInstance : MonoBehaviour {
     void Start () {
         playerData = new Player();
 
-        InitDeck();
+        if (GameObject.Find("PersistentPlayerData") && GameObject.Find("PersistentPlayerData").GetComponent<PersistentPlayerData>().isInitialized)
+        {
+            playerData.playerDeck = GameObject.Find("PersistentPlayerData").GetComponent<PersistentPlayerData>().PlayerData.playerDeck;
+        }
+        else
+        {
+            InitDeck();
+        }
+
         playerData.ShuffleDeck();
         InitHand();
-
         UIManager.instance.PlayerInitHand(playerData.playerCards);
 
         GameManager.instance.CurrentPlayer = this;
@@ -79,13 +86,7 @@ public class PlayerInstance : MonoBehaviour {
 
     public void DrawCard()
     {
-        if (playerData.DrawNextCard())
-        {
-            UIManager.instance.RefreshNbCardLeftPlayer(playerData.playerDeck.Count);
-        }
-        else
-        {
-            Destroy(UIManager.instance.DeckPlayer.gameObject);
-        }
+        playerData.DrawNextCard();
+        UIManager.instance.RefreshNbCardLeftPlayer(playerData.playerDeck.Count);
     }
 }

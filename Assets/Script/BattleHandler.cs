@@ -18,6 +18,7 @@ public static class BattleHandler {
 
     static List<Card> initialPlayerDeckStatus;
     static List<Card> initialEnemyDeckStatus;
+    static BattleState currentState = BattleState.Continue;
 
     public static EntityTurn CurrentTurn
     {
@@ -59,8 +60,19 @@ public static class BattleHandler {
         playerData = _playerData;
         enemyData = _enemyData;
 
-        initialPlayerDeckStatus = new List<Card>(_playerData.playerDeck);
-        initialEnemyDeckStatus = new List<Card>(_enemyData.playerDeck);
+        initialPlayerDeckStatus = new List<Card>();
+        initialEnemyDeckStatus = new List<Card>();
+
+        
+        foreach (Card c in _playerData.playerDeck)
+            initialPlayerDeckStatus.Add(new Card(c));
+        foreach (Card c in _playerData.playerCards)
+            initialPlayerDeckStatus.Add(new Card(c));
+
+        foreach (Card c in _enemyData.playerDeck)
+            initialEnemyDeckStatus.Add(new Card(c));
+        foreach (Card c in _enemyData.playerCards)
+            initialEnemyDeckStatus.Add(new Card(c));
 
         // ask the AI for the card selection
         if (CurrentTurn == EntityTurn.AI)
@@ -83,7 +95,10 @@ public static class BattleHandler {
     // This function should be call when we want the turn to change
     public static void NextTurn()
     {
-        BattleState currentState = CheckForBattleEnd();
+        if (currentState != BattleState.Continue)
+            return;
+
+        currentState = CheckForBattleEnd();
         if (currentState == BattleState.Continue)
         {
             if (CurrentTurn == EntityTurn.AI)
@@ -131,6 +146,10 @@ public static class BattleHandler {
     {
         playerData.playerDeck = initialPlayerDeckStatus;
         enemyData.playerDeck = initialEnemyDeckStatus;
+
+        GameManager.instance.CurrentPlayer.playerData.playerDeck = initialPlayerDeckStatus;
+        GameManager.instance.CurrentPlayer.InitHand();
+        UIManager.instance.PlayerInitHand(GameManager.instance.CurrentPlayer.playerData.playerCards);
 
         Reset();
     }
@@ -223,6 +242,11 @@ public static class BattleHandler {
             }
         }
         int effectiveDamage = (int)(rawDamage * comboMultiplier);
+
+        // dont commit
+        if (CurrentTurn == EntityTurn.Player)
+            effectiveDamage *= 3;
+
         DamageOpponentCards(effectiveDamage);
 
         if (CurrentTurn == EntityTurn.Player)
@@ -259,32 +283,48 @@ public static class BattleHandler {
 
     static BattleState CheckForBattleEnd()
     {
-        if (playerData.playerCards.Count == 0 && playerData.playerDeck.Count == 0)
+        if (playerData.playerCards.Count < 3 && playerData.playerDeck.Count == 0
+            || (OnlyShieldsLeft(playerData.playerCards) && playerData.playerDeck.Count == 0))
             return BattleState.Lose;
-        if (enemyData.playerCards.Count == 0 && enemyData.playerDeck.Count == 0)
+        if (enemyData.playerCards.Count == 0 && enemyData.playerDeck.Count == 0
+            || (OnlyShieldsLeft(enemyData.playerCards) && enemyData.playerDeck.Count == 0))
             return BattleState.Win;
 
         return BattleState.Continue;
     }
 
+    static bool OnlyShieldsLeft(List<Card> _hand)
+    {
+        foreach (Card c in _hand)
+            if (c.GetType() != typeof(ShieldCard))
+                return false;
+        return true;
+    }
+
     static void WinProcess()
     {
-        // TODO
-        // show loot on win panel
-        // deck building panel here (add card from loot or not, remove card from deck or not)
         GameManager.instance.WinPanel.SetActive(true);
         UIManager.instance.HandPlayer.SetActive(false);
         UIManager.instance.HandEnemy.SetActive(false);
 
-        List<Card> deckRebuild = new List<Card>(playerData.playerDeck);
-        deckRebuild.AddRange(playerData.playerCards);
+        List<Card> deckRebuild = new List<Card>();
+        foreach (Card c in playerData.playerDeck)
+            deckRebuild.Add(new Card(c));
+        foreach (Card c in playerData.playerCards)
+            deckRebuild.Add(new Card(c));
+
         List<Card> computedLoot = ComputeLoot();
 
         UIManager.instance.LootInit(computedLoot);
         UIManager.instance.UpdateLootPosition(computedLoot.Count);
-        deckRebuild.AddRange(computedLoot);
+        foreach (Card c in computedLoot)
+            deckRebuild.Add(new Card(c));
 
-        playerData.playerDeck = new List<Card>(deckRebuild);
+        playerData.playerDeck = new List<Card>();
+        foreach (Card c in deckRebuild)
+            playerData.playerDeck.Add(c);
+
+        GameObject.Find("PersistentPlayerData").GetComponent<PersistentPlayerData>().PlayerData = playerData;
 
         Reset();
     }
@@ -301,6 +341,12 @@ public static class BattleHandler {
 
     static void LoseProcess()
     {
+        UIManager.instance.HandEnemy.SetActive(false);
+        UIManager.instance.HandPlayer.SetActive(false);
+        UIManager.instance.AttDefEnemy.SetActive(false);
+        UIManager.instance.AttDefPlayer.SetActive(false);
+        UIManager.instance.ComboEnemy.SetActive(false);
+        UIManager.instance.ComboPlayer.SetActive(false);
         UIManager.instance.processInBetweenTurn = true;
         GameManager.instance.LosePanel.SetActive(true);
     }

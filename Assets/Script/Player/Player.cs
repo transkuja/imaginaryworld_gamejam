@@ -66,11 +66,8 @@ public class Player
 
     public bool DrawNextCard()
     {
-        if (playerDeck.Count <= 0)
-            return false;
-
-        if (playerCards.Count >= MAX_CARDS_IN_HAND)
-            return false;
+        //if (playerCards.Count >= MAX_CARDS_IN_HAND)
+        //    return false;
         
         playerCards.Add(playerDeck[0]);
         playerDeck.RemoveAt(0);

@@ -14,12 +14,19 @@ public class LosePanel : MonoBehaviour {
     {
         BattleHandler.RestoreDecks();
         UIManager.instance.processInBetweenTurn = false;
+        UIManager.instance.HandEnemy.SetActive(true);
+        UIManager.instance.HandPlayer.SetActive(true);
+        UIManager.instance.AttDefEnemy.SetActive(true);
+        UIManager.instance.AttDefPlayer.SetActive(true);
+        UIManager.instance.ComboEnemy.SetActive(true);
+        UIManager.instance.ComboPlayer.SetActive(true);
         gameObject.SetActive(false);
+
     }
 
     public void AddToDeck()
     {
         GameManager.instance.WinPanel.SetActive(false);
-        // TODO: launch next fight
+        SceneManager.LoadScene(1);
     }
 }
