@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 public static class BattleHandler {
@@ -14,6 +15,9 @@ public static class BattleHandler {
 
     static List<Card> lastSelectionReceived;
     static Combo comboReceived;
+
+    static List<Card> initialPlayerDeckStatus;
+    static List<Card> initialEnemyDeckStatus;
 
     public static EntityTurn CurrentTurn
     {
@@ -45,6 +49,9 @@ public static class BattleHandler {
         playerData = _playerData;
         enemyData = _enemyData;
 
+        initialPlayerDeckStatus = new List<Card>(_playerData.playerDeck);
+        initialEnemyDeckStatus = new List<Card>(_enemyData.playerDeck);
+
         // ask the AI for the card selection
         if (CurrentTurn == EntityTurn.AI)
             Debug.Log("AI is playing ...");
@@ -71,10 +78,12 @@ public static class BattleHandler {
         {
             if (CurrentTurn == EntityTurn.AI)
             {
+                playerData.currentTurnDefenseValue = 0;
                 CurrentTurn = EntityTurn.Player;
             }
             else
             {
+                enemyData.currentTurnDefenseValue = 0;
                 CurrentTurn = EntityTurn.AI;
             }
           
@@ -102,11 +111,18 @@ public static class BattleHandler {
         enemyData = null;
     }
 
-
     public static void CardResolution()
     {
         ComboAnalysis();
         ApplyCardEffects();
+    }
+
+    public static void RestoreDecks()
+    {
+        playerData.playerDeck = initialPlayerDeckStatus;
+        enemyData.playerDeck = initialEnemyDeckStatus;
+
+        Reset();
     }
 
     static void ComboAnalysis()
@@ -186,7 +202,7 @@ public static class BattleHandler {
             if (c.GetType() == typeof(ShieldCard))
             {
                 if (CurrentTurn == EntityTurn.Player)
-                    playerData.currentTurnDefenseValue += (int)(((ShieldCard)c).defenseValue * comboMultiplier);
+                    playerData.currentTurnDefenseValue += (int)(((ShieldCard)c).defenseValue * comboMultiplier);              
                 else
                     enemyData.currentTurnDefenseValue += (int)(((ShieldCard)c).defenseValue * comboMultiplier);
             }
@@ -235,15 +251,27 @@ public static class BattleHandler {
     static void WinProcess()
     {
         // TODO
+        // show loot on win panel
+        // deck building panel here (add card from loot or not, remove card from deck or not)
+        List<Card> loot = ComputeLoot();
 
         Reset();
     }
 
+    static List<Card> ComputeLoot()
+    {
+        List<Card> returnLoot = new List<Card>();
+        for (int i = 0; i < enemyData.lootQuantity; i++)
+        {
+            returnLoot.Add(initialEnemyDeckStatus[Random.Range(0, initialEnemyDeckStatus.Count)]);
+        }
+        return returnLoot;
+    }
+
     static void LoseProcess()
     {
-        // TODO
-
-        Reset();
+        UIManager.instance.processInBetweenTurn = true;
+        GameManager.instance.LosePanel.SetActive(true);
     }
 
     static void Reset()
