@@ -24,37 +24,37 @@ AnimationClip:
         tangentMode: 0
       - serializedVersion: 2
         time: 0.5
-        value: {x: 0, y: 0, z: 180}
-        inSlope: {x: 0, y: 0, z: 360}
-        outSlope: {x: 0, y: 0, z: 360}
+        value: {x: 0, y: 0, z: 360}
+        inSlope: {x: 0, y: 0, z: 720}
+        outSlope: {x: 0, y: 0, z: 720}
         tangentMode: 0
       - serializedVersion: 2
         time: 1
-        value: {x: 0, y: 0, z: 360}
-        inSlope: {x: 0, y: 0, z: 360}
-        outSlope: {x: 0, y: 0, z: 360}
+        value: {x: 0, y: 0, z: 720}
+        inSlope: {x: 0, y: 0, z: 720}
+        outSlope: {x: 0, y: 0, z: 720}
         tangentMode: 0
       - serializedVersion: 2
         time: 1.5
-        value: {x: 0, y: 0, z: 540}
-        inSlope: {x: 0, y: 0, z: 360}
-        outSlope: {x: 0, y: 0, z: 360}
+        value: {x: 0, y: 0, z: 1080}
+        inSlope: {x: 0, y: 0, z: 720}
+        outSlope: {x: 0, y: 0, z: 720}
         tangentMode: 0
       - serializedVersion: 2
         time: 1.6833333
-        value: {x: 0, y: 0, z: 606}
-        inSlope: {x: 0, y: 0, z: 360}
-        outSlope: {x: 0, y: 0, z: 360}
+        value: {x: 0, y: 0, z: 1224.2614}
+        inSlope: {x: 0, y: 0, z: 815.04004}
+        outSlope: {x: 0, y: 0, z: 815.04004}
         tangentMode: 0
       - serializedVersion: 2
         time: 2
-        value: {x: 0, y: 0, z: 720}
-        inSlope: {x: 0, y: 0, z: 359.99997}
-        outSlope: {x: 0, y: 0, z: 359.99997}
+        value: {x: 0, y: 0, z: 1440}
+        inSlope: {x: 0, y: 0, z: 431.99994}
+        outSlope: {x: 0, y: 0, z: 431.99994}
         tangentMode: 0
       - serializedVersion: 2
         time: 2.1666667
-        value: {x: 0, y: 0, z: 780}
+        value: {x: 0, y: 0, z: 1512}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
@@ -471,31 +471,31 @@ AnimationClip:
         tangentMode: 136
       - serializedVersion: 2
         time: 0.5
-        value: 180
-        inSlope: 360
-        outSlope: 360
+        value: 360
+        inSlope: 720
+        outSlope: 720
         tangentMode: 136
       - serializedVersion: 2
         time: 1
-        value: 360
-        inSlope: 360
-        outSlope: 360
+        value: 720
+        inSlope: 720
+        outSlope: 720
         tangentMode: 136
       - serializedVersion: 2
         time: 1.5
-        value: 540
-        inSlope: 360
-        outSlope: 360
+        value: 1080
+        inSlope: 720
+        outSlope: 720
         tangentMode: 136
       - serializedVersion: 2
         time: 2
-        value: 720
-        inSlope: 359.99997
-        outSlope: 359.99997
+        value: 1440
+        inSlope: 431.99994
+        outSlope: 431.99994
         tangentMode: 136
       - serializedVersion: 2
         time: 2.1666667
-        value: 780
+        value: 1512
         inSlope: 0
         outSlope: 0
         tangentMode: 136

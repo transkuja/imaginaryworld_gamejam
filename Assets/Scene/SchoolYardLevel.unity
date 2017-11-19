@@ -880,7 +880,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 2120666084
+  randomSeed: -651298799
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -2109,7 +2109,7 @@ ParticleSystem:
     x:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.05
+      scalar: 0.025
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -4182,6 +4182,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa7a88d4d6d92564180a9c88ee715a34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timer: 0
   minTime: 10
   maxTime: 30
 --- !u!1001 &516097610
@@ -4532,7 +4533,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1478241104
+  randomSeed: 660563852
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -5761,7 +5762,7 @@ ParticleSystem:
     x:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.05
+      scalar: 0.025
       minScalar: 0
       maxCurve:
         serializedVersion: 2
@@ -7791,6 +7792,9 @@ MonoBehaviour:
   turnText: {fileID: 1770662877}
   moveTurnText: 0
   tmpCardsPlayedInst: []
+  resolutionUi: 0
+  battleHandlerNeedNextTurn: 0
+  processInBetweenTurn: 0
 --- !u!114 &689234352
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8044,6 +8048,12 @@ Prefab:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: StartFightForPlayer
       objectReference: {fileID: 0}
+    - target: {fileID: 114397091411852246, guid: 3868a51e918c3d44895f9de4b480c62a,
+        type: 2}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 182bf279743072847a26157289c714b0,
+        type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3868a51e918c3d44895f9de4b480c62a, type: 2}
   m_IsPrefabParent: 0
@@ -9006,8 +9016,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -670, y: 0}
-  m_SizeDelta: {x: 2117.3, y: 1000}
+  m_AnchoredPosition: {x: -404.40002, y: 0}
+  m_SizeDelta: {x: 3002.5, y: 1000}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1770662879
 MonoBehaviour:
@@ -9029,7 +9039,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: 182bf279743072847a26157289c714b0, type: 3}
     m_FontSize: 300
     m_FontStyle: 2
     m_BestFit: 0

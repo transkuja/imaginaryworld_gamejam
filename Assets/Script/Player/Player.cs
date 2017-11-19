@@ -37,7 +37,14 @@ public class Player
             // TODO: damage cards
             int damagedCardIndex = Random.Range(0, playerCards.Count);
             playerCards[damagedCardIndex].CardHealth -= damageOnCards;
-            if(playerCards[damagedCardIndex].CardHealth == 0)
+            for (int i = 0; i < playerCards[damagedCardIndex].combinationValues.Length; i++)
+            {
+                playerCards[damagedCardIndex].combinationValues[i]--;
+                if (playerCards[damagedCardIndex].combinationValues[i] < 0)
+                    playerCards[damagedCardIndex].combinationValues[i] = 0;
+            }
+                
+            if (playerCards[damagedCardIndex].CardHealth == 0)
             {
                 playerCards.RemoveAt(damagedCardIndex);
                 if (OnCardDamage != null)

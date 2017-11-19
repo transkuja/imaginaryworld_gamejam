@@ -42,7 +42,6 @@ public class UIManager : MonoBehaviour {
     Vector3[] positionCardPlayed;
     float timerCardPlayed = 0.0f;
 
-
     public bool resolutionUi = false;
     public bool battleHandlerNeedNextTurn = false;
     public bool processInBetweenTurn = false;
@@ -264,8 +263,10 @@ public class UIManager : MonoBehaviour {
     {
         turnText.GetComponent<Text>().text = text +"'s Turn ...";
         turnText.transform.localPosition = turnTextOrigin;
+        turnText.GetComponent<Text>().CrossFadeAlpha(1, 0, true);
         turnText.SetActive(true);
         moveTurnText = true;
+        turnText.GetComponent<Text>().CrossFadeAlpha(0, 1, true);
         yield return new WaitForSeconds(2f);
 
     }
@@ -294,6 +295,7 @@ public class UIManager : MonoBehaviour {
     public void MoveTurnText()
     {
         turnText.transform.position += Vector3.right  *0.2f* Time.deltaTime;
+
         if (Vector3.Distance(turnText.transform.position, turnTextArrival)< 0.2f)
         {
 
