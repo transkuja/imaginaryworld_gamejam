@@ -114,7 +114,7 @@ public static class BattleHandler {
 
     static void Init()
     {
-        CurrentTurn = (EntityTurn)Random.Range(0, 2);
+        CurrentTurn = EntityTurn.Player;
         lastSelectionReceived = new List<Card>();
         comboReceived = Combo.None;
         playerData = null;
@@ -272,7 +272,19 @@ public static class BattleHandler {
         // TODO
         // show loot on win panel
         // deck building panel here (add card from loot or not, remove card from deck or not)
-        List<Card> loot = ComputeLoot();
+        GameManager.instance.WinPanel.SetActive(true);
+        UIManager.instance.HandPlayer.SetActive(false);
+        UIManager.instance.HandEnemy.SetActive(false);
+
+        List<Card> deckRebuild = new List<Card>(playerData.playerDeck);
+        deckRebuild.AddRange(playerData.playerCards);
+        List<Card> computedLoot = ComputeLoot();
+
+        UIManager.instance.LootInit(computedLoot);
+        UIManager.instance.UpdateLootPosition(computedLoot.Count);
+        deckRebuild.AddRange(computedLoot);
+
+        playerData.playerDeck = new List<Card>(deckRebuild);
 
         Reset();
     }

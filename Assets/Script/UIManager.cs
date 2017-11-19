@@ -48,6 +48,11 @@ public class UIManager : MonoBehaviour {
     Vector3[] positionCardPlayed;
     float timerCardPlayed = 0.0f;
 
+    // Loot
+    bool updateLootPosition = false;
+    Vector3[] positionLoot;
+    float timerLoot = 0.0f;
+
     public bool resolutionUi = false;
     public bool battleHandlerNeedNextTurn = false;
     public bool processInBetweenTurn = false;
@@ -77,6 +82,9 @@ public class UIManager : MonoBehaviour {
 
         if (updateCardPlayedPosition)
             PlayInitTmpCardPlayedPosition();
+
+        if (updateLootPosition)
+            PlayInitLootPosition();
 
         if (resolutionUi)
             CardResolutionUI();
@@ -131,6 +139,11 @@ public class UIManager : MonoBehaviour {
         InitHand(handCards, cardEnemyPrefab, true, HandEnemy, DeckEnemy);
     }
 
+    public void LootInit(List<Card> handCards)
+    {
+        InitHand(handCards, cardPlayerPrefab, false, GameManager.instance.WinPanel.transform.GetChild(1).gameObject, GameManager.instance.WinPanel.transform.GetChild(1).gameObject);
+    }
+
     public void UpdateHandPlayerPosition()
     {
         int cardsCount = GameManager.instance.CurrentPlayer.playerData.playerCards.Count;
@@ -146,6 +159,18 @@ public class UIManager : MonoBehaviour {
         }
 
         updateHandPlayerPosition = true;
+    }
+
+    public void UpdateLootPosition(int _lootQuantity)
+    {
+        positionLoot = new Vector3[_lootQuantity];
+        float spaceBetweenCards = cardPlayerPrefab.GetComponent<RectTransform>().rect.width / 15.0f;
+        for (int i = 0; i < positionLoot.Length; i++)
+        {
+            positionLoot[i] = GameManager.instance.WinPanel.transform.GetChild(1).position + (i * cardPlayerPrefab.GetComponent<RectTransform>().rect.width * cardPlayerPrefab.GetComponent<RectTransform>().localScale.x * Vector3.right) + (i > 0 ? (spaceBetweenCards * Vector3.right * i) : Vector3.zero);
+        }
+
+        updateLootPosition = true;
     }
 
     public void UpdateHandEnemyPosition()
@@ -182,6 +207,27 @@ public class UIManager : MonoBehaviour {
                     HandPlayer.transform.GetChild(j).GetComponent<CardInstance>().IsReady = true;
                 }
                 timerPlayer = 0.0f;
+            }
+        }
+    }
+
+    public void PlayInitLootPosition()
+    {
+        GameObject origin = GameManager.instance.WinPanel.transform.GetChild(1).gameObject;
+
+        timerLoot += Time.deltaTime;
+        for (int i = 0; i < origin.transform.childCount; i++)
+        {
+            origin.transform.GetChild(i).localPosition = Vector3.Lerp(origin.transform.GetChild(i).localPosition, positionLoot[i], Mathf.Clamp(timerLoot * 0.2f, 0, 1));
+            if (Vector3.Distance(origin.transform.GetChild(origin.transform.childCount - 1).localPosition, positionLoot[origin.transform.childCount - 1]) <= 0.2f)
+            {
+                updateHandPlayerPosition = false;
+                for (int j = 0; j < origin.transform.childCount; j++)
+                {
+                    origin.transform.GetChild(j).tag = "Chiottes";
+                    origin.transform.GetChild(j).GetComponent<CardInstance>().IsReady = true;
+                }
+                timerLoot = 0.0f;
             }
         }
     }

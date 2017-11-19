@@ -6,6 +6,7 @@ TagManager:
   tags:
   - card
   - value
+  - Chiottes
   layers:
   - Default
   - TransparentFX

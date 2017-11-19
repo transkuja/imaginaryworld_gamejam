@@ -16,4 +16,10 @@ public class LosePanel : MonoBehaviour {
         UIManager.instance.processInBetweenTurn = false;
         gameObject.SetActive(false);
     }
+
+    public void AddToDeck()
+    {
+        GameManager.instance.WinPanel.SetActive(false);
+        // TODO: launch next fight
+    }
 }

@@ -41,6 +41,9 @@ public class Player
             {
                 for (int i = 0; i < damageOnCards; i++)
                 {
+                    if (playerCards.Count == 0)
+                        break;
+
                     int damagedCardIndex = Random.Range(0, playerCards.Count);
                     playerCards[damagedCardIndex].CardHealth--;
 
