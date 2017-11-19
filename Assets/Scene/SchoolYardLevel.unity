@@ -8187,8 +8187,8 @@ MonoBehaviour:
   cardEnemyPrefab: {fileID: 1823486138495250, guid: 906a6b282cd7d5a48bf75cf5a7c31005,
     type: 2}
   buttonFight: {fileID: 1076640916}
-  AttDefPlayer: {fileID: 0}
-  AttDefEnemy: {fileID: 0}
+  AttDefPlayer: {fileID: 742378336}
+  AttDefEnemy: {fileID: 1179939628}
   turnText: {fileID: 1770662877}
   moveTurnText: 0
   tmpCardsPlayedInst: []
@@ -8310,6 +8310,11 @@ RectTransform:
   m_AnchoredPosition: {x: -985, y: 109}
   m_SizeDelta: {x: 300, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &742378336 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1020517903984410, guid: d533ff038d755b84993316cf412620ca,
+    type: 2}
+  m_PrefabInternal: {fileID: 2075212080}
 --- !u!1 &758736115
 GameObject:
   m_ObjectHideFlags: 0
@@ -8964,6 +8969,11 @@ Transform:
   m_Father: {fileID: 2036615423}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1179939628 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1311622119214136, guid: 7cedd6ca8fede634f950b9ba2d967827,
+    type: 2}
+  m_PrefabInternal: {fileID: 686479433}
 --- !u!1 &1211184523
 GameObject:
   m_ObjectHideFlags: 0
