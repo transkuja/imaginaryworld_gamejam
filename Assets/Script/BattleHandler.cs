@@ -259,9 +259,9 @@ public static class BattleHandler {
 
     static BattleState CheckForBattleEnd()
     {
-        if (playerData.playerCards.Count == 0)
+        if (playerData.playerCards.Count == 0 && playerData.playerDeck.Count == 0)
             return BattleState.Lose;
-        if (enemyData.playerCards.Count == 0)
+        if (enemyData.playerCards.Count == 0 && enemyData.playerDeck.Count == 0)
             return BattleState.Win;
 
         return BattleState.Continue;
