@@ -50,6 +50,12 @@ public class EnemyInstance: MonoBehaviour {
         if (buildDeckWith.Length == 0)
         {
             enemyData.playerDeck.Add(new SwordCard(1, 2, 3, 4));
+            enemyData.playerDeck.Add(new SwordCard(1, 2, 3, 4));
+            enemyData.playerDeck.Add(new SwordCard(1, 2, 3, 4));
+            enemyData.playerDeck.Add(new SwordCard(1, 2, 3, 4));
+            enemyData.playerDeck.Add(new SwordCard(1, 2, 3, 4));
+            enemyData.playerDeck.Add(new SwordCard(1, 2, 3, 4));
+            enemyData.playerDeck.Add(new SwordCard(1, 2, 3, 4));
             enemyData.playerDeck.Add(new ShieldCard(1, 2, 3, 4));
         }
     }
