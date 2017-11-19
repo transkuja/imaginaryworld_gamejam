@@ -15,4 +15,9 @@ public class SwordCard : Card {
         : base(value1, value2, value3, value4, health) {
         damage = 2;
     }
+
+    public SwordCard(SwordCard card) : base (card)
+    {
+        damage = card.damage;
+    }
 }

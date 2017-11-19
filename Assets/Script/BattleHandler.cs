@@ -65,15 +65,33 @@ public static class BattleHandler {
 
         
         foreach (Card c in _playerData.playerDeck)
-            initialPlayerDeckStatus.Add(new Card(c));
+        {
+            if (c.GetType() == typeof(ShieldCard))
+                initialPlayerDeckStatus.Add(new ShieldCard((ShieldCard)c));
+            if (c.GetType() == typeof(SwordCard))
+                initialPlayerDeckStatus.Add(new SwordCard((SwordCard)c));
+        }
         foreach (Card c in _playerData.playerCards)
-            initialPlayerDeckStatus.Add(new Card(c));
-
+        {
+            if (c.GetType() == typeof(ShieldCard))
+                initialPlayerDeckStatus.Add(new ShieldCard((ShieldCard)c));
+            if (c.GetType() == typeof(SwordCard))
+                initialPlayerDeckStatus.Add(new SwordCard((SwordCard)c));
+        }
         foreach (Card c in _enemyData.playerDeck)
-            initialEnemyDeckStatus.Add(new Card(c));
+        {
+            if (c.GetType() == typeof(ShieldCard))
+                initialEnemyDeckStatus.Add(new ShieldCard((ShieldCard)c));
+            if (c.GetType() == typeof(SwordCard))
+                initialEnemyDeckStatus.Add(new SwordCard((SwordCard)c));
+        }
         foreach (Card c in _enemyData.playerCards)
-            initialEnemyDeckStatus.Add(new Card(c));
-
+        {
+            if (c.GetType() == typeof(ShieldCard))
+                initialEnemyDeckStatus.Add(new ShieldCard((ShieldCard)c));
+            if (c.GetType() == typeof(SwordCard))
+                initialEnemyDeckStatus.Add(new SwordCard((SwordCard)c));
+        }
         // ask the AI for the card selection
         if (CurrentTurn == EntityTurn.AI)
             Debug.Log("AI is playing ...");
@@ -309,21 +327,39 @@ public static class BattleHandler {
 
         List<Card> deckRebuild = new List<Card>();
         foreach (Card c in playerData.playerDeck)
-            deckRebuild.Add(new Card(c));
+        {
+            if (c.GetType() == typeof(ShieldCard))
+                deckRebuild.Add(new ShieldCard((ShieldCard)c));
+            if (c.GetType() == typeof(SwordCard))
+                deckRebuild.Add(new SwordCard((SwordCard)c));
+        }
         foreach (Card c in playerData.playerCards)
-            deckRebuild.Add(new Card(c));
+        {
+            if (c.GetType() == typeof(ShieldCard))
+                deckRebuild.Add(new ShieldCard((ShieldCard)c));
+            if (c.GetType() == typeof(SwordCard))
+                deckRebuild.Add(new SwordCard((SwordCard)c));
+        }
 
         List<Card> computedLoot = ComputeLoot();
 
         UIManager.instance.LootInit(computedLoot);
         UIManager.instance.UpdateLootPosition(computedLoot.Count);
         foreach (Card c in computedLoot)
-            deckRebuild.Add(new Card(c));
-
+        {
+            if (c.GetType() == typeof(ShieldCard))
+                deckRebuild.Add(new ShieldCard((ShieldCard)c));
+            if (c.GetType() == typeof(SwordCard))
+                deckRebuild.Add(new SwordCard((SwordCard)c));
+        }
         playerData.playerDeck = new List<Card>();
         foreach (Card c in deckRebuild)
-            playerData.playerDeck.Add(c);
-
+        {
+            if (c.GetType() == typeof(ShieldCard))
+                playerData.playerDeck.Add(new ShieldCard((ShieldCard)c));
+            if (c.GetType() == typeof(SwordCard))
+                playerData.playerDeck.Add(new SwordCard((SwordCard)c));
+        }
         GameObject.Find("PersistentPlayerData").GetComponent<PersistentPlayerData>().PlayerData = playerData;
 
         Reset();
@@ -334,7 +370,11 @@ public static class BattleHandler {
         List<Card> returnLoot = new List<Card>();
         for (int i = 0; i < enemyData.lootQuantity; i++)
         {
-            returnLoot.Add(initialEnemyDeckStatus[Random.Range(0, initialEnemyDeckStatus.Count)]);
+            Card card = initialEnemyDeckStatus[Random.Range(0, initialEnemyDeckStatus.Count)];
+            if (card.GetType() == typeof(ShieldCard))
+                returnLoot.Add(new ShieldCard((ShieldCard)card));
+            if (card.GetType() == typeof(SwordCard))
+                returnLoot.Add(new SwordCard((SwordCard)card));
         }
         return returnLoot;
     }
@@ -355,6 +395,7 @@ public static class BattleHandler {
     {
         lastSelectionReceived = new List<Card>();
         comboReceived = Combo.None;
+        currentState = BattleState.Continue;
         playerData = null;
         enemyData = null;
     }

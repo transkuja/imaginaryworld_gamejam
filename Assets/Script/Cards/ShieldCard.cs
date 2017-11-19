@@ -16,4 +16,9 @@ public class ShieldCard : Card {
         : base(value1, value2, value3, value4, health) {
         defenseValue = 1;
     }
+
+    public ShieldCard(ShieldCard card) : base (card)
+    {
+        defenseValue = card.defenseValue;
+    }
 }

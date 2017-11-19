@@ -17,6 +17,7 @@ public class EnemyInstance: MonoBehaviour {
 
         InitDeck();
 
+        Debug.Log(enemyData.playerDeck.Count);
         enemyData.ShuffleDeck();
         InitHand();
 

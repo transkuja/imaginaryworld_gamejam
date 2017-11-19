@@ -198,7 +198,14 @@ public class GameManager : MonoBehaviour
     {
 
         List<Card> selectedCardData = new List<Card>();
-        List<Card> copyList = new List<Card>(currentEnemy.enemyData.playerCards);
+        List<Card> copyList = new List<Card>();
+        foreach (Card c in currentEnemy.enemyData.playerCards)
+        {
+            if (c.GetType() == typeof(ShieldCard))
+                copyList.Add(new ShieldCard((ShieldCard)c));
+            if (c.GetType() == typeof(SwordCard))
+                copyList.Add(new SwordCard((SwordCard)c));
+        }
         switch (currentEnemy.typeOfAI)
         {
             case (AIType.Bully):
