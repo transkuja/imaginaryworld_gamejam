@@ -55,8 +55,8 @@ public class UIManager : MonoBehaviour {
     public void Start()
     {
         Player.OnCardDamage += DamageCardAnimation;
-        InitHandPlayerPosition();
-        InitHandEnemyPosition();
+        UpdateHandPlayerPosition();
+        UpdateHandEnemyPosition();
         InitTmpCardPlayedPosition();
         turnTextOrigin = turnText.transform.position;
         turnTextArrival = turnTextOrigin + (0.4f* Vector3.right);
@@ -122,11 +122,11 @@ public class UIManager : MonoBehaviour {
     }
 
 
-    public void InitHandPlayerPosition()
+    public void UpdateHandPlayerPosition()
     {
-        positionHandPlayer = new Vector3[Player.MAX_CARDS_IN_HAND];
+        positionHandPlayer = new Vector3[GameManager.instance.CurrentPlayer.playerData.playerCards.Count];
         float spaceBetweenCards = cardPlayerPrefab.GetComponent<RectTransform>().rect.width / 15.0f;
-        for (int i = 0; i < Player.MAX_CARDS_IN_HAND; i++)
+        for (int i = 0; i < positionHandPlayer.Length; i++)
         {
             positionHandPlayer[i] = HandPlayer.transform.position + (i * cardPlayerPrefab.GetComponent<RectTransform>().rect.width * cardPlayerPrefab.GetComponent<RectTransform>().localScale.x * Vector3.right) + (i > 0 ? (spaceBetweenCards * Vector3.right*i) : Vector3.zero);
         }
@@ -135,12 +135,12 @@ public class UIManager : MonoBehaviour {
 
     }
 
-    public void InitHandEnemyPosition()
+    public void UpdateHandEnemyPosition()
     {
         // TODO enemy card in hand
-        positionHandEnemy = new Vector3[Player.MAX_CARDS_IN_HAND];
+        positionHandEnemy = new Vector3[GameManager.instance.CurrentEnemy.enemyData.playerCards.Count];
         float spaceBetweenCards = cardEnemyPrefab.GetComponent<RectTransform>().rect.width / 15.0f;
-        for (int i = 0; i < Player.MAX_CARDS_IN_HAND; i++)
+        for (int i = 0; i < positionHandEnemy.Length; i++)
         {
             positionHandEnemy[i] = HandEnemy.transform.position + (i * cardEnemyPrefab.GetComponent<RectTransform>().rect.width * cardEnemyPrefab.GetComponent<RectTransform>().localScale.x * Vector3.left) + (i > 0 ? (spaceBetweenCards * Vector3.left*i) : Vector3.zero);
         }
@@ -159,7 +159,7 @@ public class UIManager : MonoBehaviour {
             if (Vector3.Distance(HandPlayer.transform.GetChild(HandPlayer.transform.childCount - 1).localPosition, positionHandPlayer[HandPlayer.transform.childCount - 1]) <= 0.2f )
             {
                 updateHandPlayerPosition = false;
-                for (int j = 0; j < HandEnemy.transform.childCount; j++)
+                for (int j = 0; j < HandPlayer.transform.childCount; j++)
                 {
                     HandPlayer.transform.GetChild(j).GetComponent<CardInstance>().IsReady = true;
                 }
@@ -282,27 +282,6 @@ public class UIManager : MonoBehaviour {
 
     }
 
-    void DamageCardAnimation(Player player, int cardIndex, bool destroyed)
-    {
-        if(player == GameManager.instance.CurrentPlayer.playerData)
-        {
-
-        }
-        else if(player == GameManager.instance.CurrentEnemy.enemyData)
-        {
-
-        }
-        else
-        {
-            Debug.LogError("Player not found");
-            return;
-        }
-        if(destroyed)
-        {
-
-        }
-    }
-
     public void MoveTurnText()
     {
         turnText.transform.position += Vector3.right  *0.2f* Time.deltaTime;
@@ -312,6 +291,42 @@ public class UIManager : MonoBehaviour {
 
             moveTurnText = false;
             turnText.SetActive(false);
+        }
+
+    }
+
+    void DamageCardAnimation(Player player, int cardIndex, bool destroyed)
+    {
+        if (player == GameManager.instance.CurrentPlayer.playerData)
+        {
+            // Add Animation instead of direct changes
+            if (!destroyed)
+            {
+                HandPlayer.transform.GetChild(cardIndex).GetComponent<CardInstance>().RefreshValues();
+            }
+            else
+            {
+                DestroyImmediate(HandPlayer.transform.GetChild(cardIndex).gameObject);
+                UpdateHandPlayerPosition();
+            }
+        }
+        else if (player == GameManager.instance.CurrentEnemy.enemyData)
+        {
+            // Add Animation instead of direct changes
+            if (!destroyed)
+            {
+                HandEnemy.transform.GetChild(cardIndex).GetComponent<CardInstance>().RefreshValues();
+            }
+            else
+            {
+                DestroyImmediate(HandEnemy.transform.GetChild(cardIndex).gameObject);
+                UpdateHandEnemyPosition();
+            }
+        }
+        else
+        {
+            Debug.LogError("Player not found");
+            return;
         }
 
     }
