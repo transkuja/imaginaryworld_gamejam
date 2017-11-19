@@ -330,13 +330,20 @@ public class UIManager : MonoBehaviour {
         {
             PlayerInfo.SetActive(true);
             AttDefPlayer.SetActive(true);
-            ComboPlayer.SetActive(true);
+            if(BattleHandler.comboReceived != BattleHandler.Combo.None)
+                ComboPlayer.SetActive(true);
+            else
+                ComboEnemy.SetActive(false);
         }
         else
         {
+
             EnemyInfo.SetActive(true);
             AttDefEnemy.SetActive(true);
-            ComboEnemy.SetActive(true);
+            if (BattleHandler.comboReceived != BattleHandler.Combo.None)
+                ComboEnemy.SetActive(true);
+            else
+                ComboEnemy.SetActive(false);
         }
 
         yield return new WaitForSeconds(1f);
@@ -505,6 +512,7 @@ public class UIManager : MonoBehaviour {
 
     public void RefreshPlayerInfo(int newValueAtt, int newValueDef)
     {
+
         AttDefPlayer.GetComponentInChildren<Text>().color = ComboPlayer.GetComponentInChildren<Text>().color;
         AttDefPlayer.GetComponentInChildren<Text>().text = "" + newValueAtt + "\n" + newValueDef;
     }
