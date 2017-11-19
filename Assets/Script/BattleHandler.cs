@@ -176,6 +176,8 @@ public static class BattleHandler {
     static void ApplyCardEffects()
     {
         int rawDamage = 0;
+        float comboMultiplier = GetMultiplierFromCombo(comboReceived);
+
         foreach (Card c in lastSelectionReceived)
         {
             if (c.GetType() == typeof(SwordCard))
@@ -184,31 +186,31 @@ public static class BattleHandler {
             if (c.GetType() == typeof(ShieldCard))
             {
                 if (CurrentTurn == EntityTurn.Player)
-                    playerData.currentTurnDefenseValue += ((ShieldCard)c).defenseValue;
+                    playerData.currentTurnDefenseValue += (int)(((ShieldCard)c).defenseValue * comboMultiplier);
                 else
-                    enemyData.currentTurnDefenseValue += ((ShieldCard)c).defenseValue;
+                    enemyData.currentTurnDefenseValue += (int)(((ShieldCard)c).defenseValue * comboMultiplier);
             }
         }
 
-        DamageOpponentCards(rawDamage);
+
+        DamageOpponentCards((int)(rawDamage * comboMultiplier));
+        
     }
 
-    static void DamageOpponentCards(int _rawDamage)
+    static void DamageOpponentCards(int _effectiveDamage)
     {
-        int effectiveDamage = (int)(_rawDamage * GetDamageMultiplierFromCombo(comboReceived));
-
         if (CurrentTurn == EntityTurn.Player)
-            enemyData.TakeDamage(effectiveDamage);
+            enemyData.TakeDamage(_effectiveDamage);
         else
-            playerData.TakeDamage(effectiveDamage);
+            playerData.TakeDamage(_effectiveDamage);
     }
 
-    static float GetDamageMultiplierFromCombo(Combo _combo)
+    static float GetMultiplierFromCombo(Combo _combo)
     {
         switch (_combo)
         {
             case Combo.Pairs:
-                return 1.2f;
+                return 1.5f;
             case Combo.AllTheSame:
                 return 2.5f;
             case Combo.Suite:
