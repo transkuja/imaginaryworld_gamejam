@@ -69,8 +69,7 @@ public class AudioManager : MonoBehaviour
         if (s_instance == null)
         {
             s_instance = this;
-            DontDestroyOnLoad(gameObject);
-            transform.GetChild(0).GetComponent<AudioSource>().clip = menuMusic;
+            //DontDestroyOnLoad(gameObject);
         }
         else if (s_instance != this)
         {

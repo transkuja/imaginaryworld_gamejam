@@ -104,7 +104,7 @@ public class GameManager : MonoBehaviour
                 if (hitInfo.collider)
                 {
     
-                    if (hitInfo.transform.tag == "value" && hitInfo.transform.gameObject.GetComponentInParent<CardInstance>().IsReady && selectedCards.Contains(hitInfo.transform.gameObject.GetComponentInParent<CardInstance>()))
+                    if (hitInfo.transform.tag == "value" && hitInfo.transform.gameObject.GetComponentInParent<CardInstance>().IsReady && selectedCards.Count <3/*&& selectedCards.Contains(hitInfo.transform.gameObject.GetComponentInParent<CardInstance>())*/)
                     {
                         clickOnValue = true;
                         CardInstance cardInstance = hitInfo.transform.gameObject.GetComponentInParent<CardInstance>();
@@ -144,7 +144,7 @@ public class GameManager : MonoBehaviour
 
                 //hitInfo = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition) - Camera.main.transform.forward * 0.01f, Camera.main.transform.forward, layerMask);
                 Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out hitInfo, Mathf.Infinity, layerMask);
-                if (!clickOnValue && hitInfo.collider)
+                if (/*!clickOnValue && */hitInfo.collider)
                 {
                     if (hitInfo.transform.tag == "card" && hitInfo.transform.gameObject.GetComponent<CardInstance>().IsReady)
                     {
@@ -169,9 +169,12 @@ public class GameManager : MonoBehaviour
                                 }
                             }
 
-
-                            instance.selectedCards.Add(cardInstance);
-                            hitInfo.transform.localPosition += new Vector3(0, 60f, 0);
+                            if( selectedCards.Count < 3)
+                            {
+                                instance.selectedCards.Add(cardInstance);
+                                hitInfo.transform.localPosition += new Vector3(0, 60f, 0);
+                            }
+                           
                         }
                         else
                         {
