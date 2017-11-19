@@ -12,8 +12,8 @@ public class ShieldCard : Card {
 
     }
 
-    public ShieldCard(int value1, int value2, int value3, int value4)
-        : base(value1, value2, value3, value4) {
+    public ShieldCard(int value1, int value2, int value3, int value4, int health = 3)
+        : base(value1, value2, value3, value4, health) {
         defenseValue = 1;
     }
 }

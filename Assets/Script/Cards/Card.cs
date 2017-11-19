@@ -40,12 +40,13 @@ public class Card {
     #endregion
 
 
-    public Card(int value1, int value2, int value3, int value4)
+    public Card(int value1, int value2, int value3, int value4, int health = 3)
     {
         combinationValues[0] = value1;
         combinationValues[1] = value2;
         combinationValues[2] = value3;
         combinationValues[3] = value4;
+        cardHealth = health;
     }
 
     public void HandleCardHealth(int _newValue)
