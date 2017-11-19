@@ -12,6 +12,10 @@ public static class Utils  {
             return new SwordCard((SwordCard)_card);
         if (_card.GetType() == typeof(HealCard))
             return new HealCard((HealCard)_card);
+        if (_card.GetType() == typeof(SwapCard))
+            return new SwapCard((SwapCard)_card);
+        if (_card.GetType() == typeof(ComboCard))
+            return new ComboCard((ComboCard)_card);
         return new Card(_card);
     }
 }

@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 public static class BattleHandler {
     public enum EntityTurn { Player, AI }
-    public enum Combo { None, Suite, Pairs, AllTheSame }
+    public enum Combo { None, Suite, Pairs, AllTheSame, Size }
     enum BattleState { Win, Lose, Continue }
     private static EntityTurn currentTurn;
     static Player playerData;
@@ -227,31 +227,58 @@ public static class BattleHandler {
     {
         int rawDamage = 0;
         int rawHeal = 0;
+        int rawDefense = 0;
         float comboMultiplier = GetMultiplierFromCombo(comboReceived);
 
-        foreach (Card c in lastSelectionReceived)
+        for (int i = 0; i < lastSelectionReceived.Count; i++)
         {
-            if (c.GetType() == typeof(SwordCard))
-                rawDamage += ((SwordCard)c).damage;
+            if (lastSelectionReceived[i].GetType() == typeof(SwordCard))
+                rawDamage += ((SwordCard)lastSelectionReceived[i]).damage;
 
-            if (c.GetType() == typeof(ShieldCard))
+            if (lastSelectionReceived[i].GetType() == typeof(ShieldCard))
+                rawDefense += ((ShieldCard)lastSelectionReceived[i]).defenseValue;              
+
+            if (lastSelectionReceived[i].GetType() == typeof(HealCard))
+                rawHeal += ((HealCard)lastSelectionReceived[i]).healValue;
+
+            if (lastSelectionReceived[i].GetType() == typeof(SwapCard))
             {
-                if (CurrentTurn == EntityTurn.Player)
-                    playerData.currentTurnDefenseValue += (int)(((ShieldCard)c).defenseValue * comboMultiplier);              
-                else
-                    enemyData.currentTurnDefenseValue += (int)(((ShieldCard)c).defenseValue * comboMultiplier);
+                if (i < lastSelectionReceived.Count - 1)
+                {
+                    if (lastSelectionReceived[i + 1].GetType() == typeof(SwordCard))
+                    {
+                        int value = ((SwordCard)lastSelectionReceived[i + 1]).damage;
+                        lastSelectionReceived[i + 1] = new ShieldCard(lastSelectionReceived[i + 1].combinationValues[0], lastSelectionReceived[i + 1].combinationValues[1], lastSelectionReceived[i + 1].combinationValues[2], lastSelectionReceived[i + 1].combinationValues[3], lastSelectionReceived[i + 1].CardHealth);
+                        ((ShieldCard)lastSelectionReceived[i + 1]).defenseValue = value;
+                    }
+                    if (lastSelectionReceived[i + 1].GetType() == typeof(ShieldCard))
+                    {
+                        int value = ((ShieldCard)lastSelectionReceived[i + 1]).defenseValue;
+                        lastSelectionReceived[i + 1] = new SwordCard(lastSelectionReceived[i + 1].combinationValues[0], lastSelectionReceived[i + 1].combinationValues[1], lastSelectionReceived[i + 1].combinationValues[2], lastSelectionReceived[i + 1].combinationValues[3], lastSelectionReceived[i + 1].CardHealth);
+                        ((SwordCard)lastSelectionReceived[i + 1]).damage = value;
+                    }
+                }
             }
 
-            if (c.GetType() == typeof(HealCard))
-                rawHeal += ((HealCard)c).healValue;
+            if (lastSelectionReceived[i].GetType() == typeof(ComboCard))
+            {
+                comboMultiplier = GetMultiplierFromCombo((Combo)Random.Range(0, (int)Combo.Size));
+            }
 
         }
 
         int effectiveDamage = (int)(rawDamage * comboMultiplier);
         DamageOpponentCards(effectiveDamage);
 
+        int effectiveDefense = (int)(rawDefense * comboMultiplier);
+        if (CurrentTurn == EntityTurn.Player)
+            playerData.currentTurnDefenseValue = effectiveDefense;
+        else
+            enemyData.currentTurnDefenseValue = effectiveDefense;
+
         int effectiveHeal = (int)(rawHeal * comboMultiplier);
         HealCards(effectiveHeal);
+
 
         if (CurrentTurn == EntityTurn.Player)
             UIManager.instance.RefreshPlayerInfo(effectiveDamage, playerData.currentTurnDefenseValue);
@@ -298,7 +325,7 @@ public static class BattleHandler {
         if (playerData.playerCards.Count < 3 && playerData.playerDeck.Count == 0
             || (OnlyShieldsLeft(playerData.playerCards) && playerData.playerDeck.Count == 0))
             return BattleState.Lose;
-        if (enemyData.playerCards.Count == 0 && enemyData.playerDeck.Count == 0
+        if (enemyData.playerCards.Count < 3 && enemyData.playerDeck.Count == 0
             || (OnlyShieldsLeft(enemyData.playerCards) && enemyData.playerDeck.Count == 0))
             return BattleState.Win;
 
