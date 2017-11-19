@@ -8579,7 +8579,7 @@ Prefab:
     - target: {fileID: 114553825727432962, guid: fb4f2aa983d55eb489c8a1df23c1eda2,
         type: 2}
       propertyPath: m_FontData.m_FontStyle
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114553825727432962, guid: fb4f2aa983d55eb489c8a1df23c1eda2,
         type: 2}
@@ -8596,6 +8596,12 @@ Prefab:
       propertyPath: m_Color.g
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114553825727432962, guid: fb4f2aa983d55eb489c8a1df23c1eda2,
+        type: 2}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 182bf279743072847a26157289c714b0,
+        type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: fb4f2aa983d55eb489c8a1df23c1eda2, type: 2}
   m_IsPrefabParent: 0
@@ -10939,7 +10945,7 @@ Prefab:
     - target: {fileID: 114852394315882932, guid: b9281634e4d0f3e4793588de6f24d235,
         type: 2}
       propertyPath: m_FontData.m_FontStyle
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114852394315882932, guid: b9281634e4d0f3e4793588de6f24d235,
         type: 2}
@@ -10956,6 +10962,12 @@ Prefab:
       propertyPath: m_Color.g
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114852394315882932, guid: b9281634e4d0f3e4793588de6f24d235,
+        type: 2}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 182bf279743072847a26157289c714b0,
+        type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b9281634e4d0f3e4793588de6f24d235, type: 2}
   m_IsPrefabParent: 0
