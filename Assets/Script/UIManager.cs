@@ -91,36 +91,41 @@ public class UIManager : MonoBehaviour {
         Player.OnCardDamage -= DamageCardAnimation;
     }
 
-    public void PlayerInitHand(List<Card> handCards)
+    public void InitHand(List<Card> handCards, GameObject CardPrefab, bool isHidden, GameObject Parent, GameObject initialParent)
     {
         for (int i = 0; i < handCards.Count; i++)
         {
-            GameObject instCard = Instantiate(cardPlayerPrefab, DeckPlayer.gameObject.transform);
+            GameObject instCard = Instantiate(CardPrefab, initialParent.transform);
             instCard.transform.localPosition = Vector3.zero;
             //instCard.transform.localScale = Vector3.one;
-            instCard.transform.SetParent(HandPlayer.transform);
+            instCard.transform.SetParent(Parent.transform);
             instCard.GetComponent<CardInstance>().CardData = handCards[i];
+            instCard.GetComponent<CardInstance>().IsHidden = isHidden;
             instCard.GetComponent<CardInstance>().RefreshValues();
         }
+    }
+
+    public void PlayerInitHand(List<Card> handCards)
+    {
+        InitHand(handCards, cardPlayerPrefab, false, HandPlayer, DeckPlayer);
     }
 
     public void EnemyInitHand(List<Card> handCards)
     {
-        for (int i = 0; i < handCards.Count; i++)
-        {
-            GameObject instCard = Instantiate(cardEnemyPrefab, DeckEnemy.gameObject.transform);
-            instCard.transform.localPosition = Vector3.zero;
-            //instCard.transform.localScale = Vector3.one;
-            instCard.transform.SetParent(HandEnemy.transform);
-            
-            instCard.GetComponent<CardInstance>().CardData = handCards[i];
-            instCard.GetComponent<CardInstance>().IsHidden = true;
-            instCard.GetComponent<CardInstance>().RefreshValues();
-
-
-        }
+        InitHand(handCards, cardEnemyPrefab, true, HandEnemy, DeckEnemy);
     }
 
+    public void UpdateHandPosition(Vector3[] position, GameObject CardPrefab, Vector3 direction, GameObject origin, bool updateHandPosition)
+    {
+        float spaceBetweenCards = CardPrefab.GetComponent<RectTransform>().rect.width / 15.0f;
+        for (int i = 0; i < position.Length; i++)
+        {
+            position[i] = origin.transform.position + (i * CardPrefab.GetComponent<RectTransform>().rect.width * CardPrefab.GetComponent<RectTransform>().localScale.x * direction) + (i > 0 ? (spaceBetweenCards * direction * i) : Vector3.zero);
+        }
+
+        updateHandPosition = true;
+
+    }
 
     public void UpdateHandPlayerPosition()
     {
@@ -128,11 +133,10 @@ public class UIManager : MonoBehaviour {
         float spaceBetweenCards = cardPlayerPrefab.GetComponent<RectTransform>().rect.width / 15.0f;
         for (int i = 0; i < positionHandPlayer.Length; i++)
         {
-            positionHandPlayer[i] = HandPlayer.transform.position + (i * cardPlayerPrefab.GetComponent<RectTransform>().rect.width * cardPlayerPrefab.GetComponent<RectTransform>().localScale.x * Vector3.right) + (i > 0 ? (spaceBetweenCards * Vector3.right*i) : Vector3.zero);
+            positionHandPlayer[i] = HandPlayer.transform.position + (i * cardPlayerPrefab.GetComponent<RectTransform>().rect.width * cardPlayerPrefab.GetComponent<RectTransform>().localScale.x * Vector3.right) + (i > 0 ? (spaceBetweenCards * Vector3.right * i) : Vector3.zero);
         }
 
         updateHandPlayerPosition = true;
-
     }
 
     public void UpdateHandEnemyPosition()
@@ -202,7 +206,7 @@ public class UIManager : MonoBehaviour {
         instance.tmpCardsPlayedInst.Clear();
         for (int i = 0; i < tmpCardPlayed.Count; i++)
         {
-            GameObject instCard = Instantiate(cardPlayerPrefab, CardPlayedInitialPosition.gameObject.transform);
+            GameObject instCard = Instantiate(cardPlayerPrefab, CardPlayedInitialPosition.transform);
             instCard.transform.localPosition = Vector3.zero;
             //instCard.transform.localScale = Vector3.one;
             instCard.transform.SetParent(CardPlayedInitialPosition.transform);
