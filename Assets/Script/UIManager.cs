@@ -18,8 +18,12 @@ public class UIManager : MonoBehaviour {
     public GameObject cardEnemyPrefab;
 
     public GameObject buttonFight;
+
     public GameObject AttDefPlayer;
     public GameObject AttDefEnemy;
+    public GameObject PlayerInfo;
+    public GameObject EnemyInfo;
+
     public GameObject ComboPlayer;
     public GameObject ComboEnemy;
 
@@ -324,11 +328,13 @@ public class UIManager : MonoBehaviour {
     {
         if (BattleHandler.CurrentTurn == BattleHandler.EntityTurn.Player)
         {
+            PlayerInfo.SetActive(true);
             AttDefPlayer.SetActive(true);
             ComboPlayer.SetActive(true);
         }
         else
         {
+            EnemyInfo.SetActive(true);
             AttDefEnemy.SetActive(true);
             ComboEnemy.SetActive(true);
         }
@@ -339,6 +345,8 @@ public class UIManager : MonoBehaviour {
 
         if (BattleHandler.CurrentTurn == BattleHandler.EntityTurn.Player)
         {
+            PlayerInfo.SetActive(false);
+            EnemyInfo.SetActive(false);
             AttDefPlayer.SetActive(false);
             AttDefEnemy.SetActive(false);
             ComboPlayer.SetActive(false);
@@ -456,19 +464,54 @@ public class UIManager : MonoBehaviour {
 
     public void RefreshComboPlayer(BattleHandler.Combo newComboValue)
     {
+        if(newComboValue == BattleHandler.Combo.None)
+        {
+            ComboPlayer.GetComponentInChildren<Text>().color = Color.white;
+        }
+        if (newComboValue == BattleHandler.Combo.Pairs)
+        {
+            ComboPlayer.GetComponentInChildren<Text>().color = Color.blue;
+        }
+        if (newComboValue == BattleHandler.Combo.Suite)
+        {
+            ComboPlayer.GetComponentInChildren<Text>().color = Color.green;
+        }
+        if (newComboValue == BattleHandler.Combo.AllTheSame)
+        {
+            ComboPlayer.GetComponentInChildren<Text>().color = Color.red;
+        }
         ComboPlayer.GetComponentInChildren<Text>().text = newComboValue.ToString();
     }
     public void RefreshComboEnemy(BattleHandler.Combo newComboValue)
     {
+        if (newComboValue == BattleHandler.Combo.None)
+        {
+            ComboEnemy.GetComponentInChildren<Text>().color = Color.white;
+        }
+        if (newComboValue == BattleHandler.Combo.Pairs)
+        {
+            ComboEnemy.GetComponentInChildren<Text>().color = Color.blue;
+        }
+        if (newComboValue == BattleHandler.Combo.Suite)
+        {
+            ComboEnemy.GetComponentInChildren<Text>().color = Color.green;
+        }
+        if (newComboValue == BattleHandler.Combo.AllTheSame)
+        {
+            ComboEnemy.GetComponentInChildren<Text>().color = Color.red;
+        }
         ComboEnemy.GetComponentInChildren<Text>().text = newComboValue.ToString();
     }
+
     public void RefreshPlayerInfo(int newValueAtt, int newValueDef)
     {
-        AttDefPlayer.GetComponentInChildren<Text>().text = "Att: " + newValueAtt + "\nDef: " + newValueDef;
+        AttDefPlayer.GetComponentInChildren<Text>().color = ComboPlayer.GetComponentInChildren<Text>().color;
+        AttDefPlayer.GetComponentInChildren<Text>().text = "" + newValueAtt + "\n" + newValueDef;
     }
     public void RefreshEnemyInfo(int newValueAtt, int newValueDef)
     {
-        AttDefEnemy.GetComponentInChildren<Text>().text = "Att: " + newValueAtt + "\nDef: " + newValueDef;
+        AttDefEnemy.GetComponentInChildren<Text>().color = ComboEnemy.GetComponentInChildren<Text>().color;
+        AttDefEnemy.GetComponentInChildren<Text>().text = "" + newValueAtt + "\n" + newValueDef;
     }
 
     public void RefreshNbCardLeftPlayer(int newValue)
@@ -484,7 +527,6 @@ public class UIManager : MonoBehaviour {
     public void RefreshNbCardLeftPlayer()
     {
         if (!GameManager.instance.CurrentPlayer)
-
             return;
         DeckPlayer.GetComponentInChildren<Text>().text = "" + GameManager.instance.CurrentPlayer.playerData.playerDeck.Count;
     }
