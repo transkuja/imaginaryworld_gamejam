@@ -34,27 +34,25 @@ public class Player
             int damageOnCards = -currentTurnDefenseValue;
             currentTurnDefenseValue = 0;
 
-            // TODO: damage cards
-            int damagedCardIndex = Random.Range(0, playerCards.Count);
-            playerCards[damagedCardIndex].CardHealth -= damageOnCards;
-            for (int i = 0; i < playerCards[damagedCardIndex].combinationValues.Length; i++)
+            // Damage cards
+            for (int i = 0; i < damageOnCards; i++)
             {
-                playerCards[damagedCardIndex].combinationValues[i]--;
-                if (playerCards[damagedCardIndex].combinationValues[i] < 0)
-                    playerCards[damagedCardIndex].combinationValues[i] = 0;
+                int damagedCardIndex = Random.Range(0, playerCards.Count);
+                playerCards[damagedCardIndex].CardHealth--;
+
+                if (playerCards[damagedCardIndex].CardHealth == 0)
+                {
+                    playerCards.RemoveAt(damagedCardIndex);
+                    if (OnCardDamage != null)
+                        OnCardDamage(this, damagedCardIndex, true);
+                }
+                else
+                {
+                    if (OnCardDamage != null)
+                        OnCardDamage(this, damagedCardIndex, false);
+                }
             }
-                
-            if (playerCards[damagedCardIndex].CardHealth == 0)
-            {
-                playerCards.RemoveAt(damagedCardIndex);
-                if (OnCardDamage != null)
-                    OnCardDamage(this, damagedCardIndex, true);
-            }
-            else
-            {
-                if (OnCardDamage != null)
-                    OnCardDamage(this, damagedCardIndex, false);
-            }
+
         }
     }
 
