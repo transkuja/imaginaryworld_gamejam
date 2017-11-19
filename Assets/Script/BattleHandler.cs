@@ -7,14 +7,14 @@ using UnityEngine.SceneManagement;
 
 public static class BattleHandler {
     public enum EntityTurn { Player, AI }
-    enum Combo { None, Suite, Pairs, AllTheSame }
+    public enum Combo { None, Suite, Pairs, AllTheSame }
     enum BattleState { Win, Lose, Continue }
     private static EntityTurn currentTurn;
     static Player playerData;
     static Player enemyData;
 
     static List<Card> lastSelectionReceived;
-    static Combo comboReceived;
+    public static Combo comboReceived;
 
     static List<Card> initialPlayerDeckStatus;
     static List<Card> initialEnemyDeckStatus;
@@ -187,6 +187,11 @@ public static class BattleHandler {
 
         if (!isASuite && !containsAPair && !areAllTheSame)
             comboReceived = Combo.None;
+        if(CurrentTurn == EntityTurn.Player)
+            UIManager.instance.RefreshComboPlayer(comboReceived);
+        else
+            UIManager.instance.RefreshComboEnemy(comboReceived);
+
     }
 
     static void ApplyCardEffects()

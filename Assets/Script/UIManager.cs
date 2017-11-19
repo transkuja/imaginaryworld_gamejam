@@ -20,6 +20,8 @@ public class UIManager : MonoBehaviour {
     public GameObject buttonFight;
     public GameObject AttDefPlayer;
     public GameObject AttDefEnemy;
+    public GameObject ComboPlayer;
+    public GameObject ComboEnemy;
 
 
     public GameObject turnText;
@@ -254,9 +256,15 @@ public class UIManager : MonoBehaviour {
     public IEnumerator CardResotionCouroutine()
     {
         if (BattleHandler.CurrentTurn == BattleHandler.EntityTurn.Player)
+        {
             AttDefPlayer.SetActive(true);
+            ComboPlayer.SetActive(true);
+        }
         else
+        {
             AttDefEnemy.SetActive(true);
+            ComboEnemy.SetActive(true);
+        }
 
         yield return new WaitForSeconds(1f);
         battleHandlerNeedNextTurn = true;
@@ -266,6 +274,8 @@ public class UIManager : MonoBehaviour {
         {
             AttDefPlayer.SetActive(false);
             AttDefEnemy.SetActive(false);
+            ComboPlayer.SetActive(false);
+            ComboEnemy.SetActive(false);
         }
         processInBetweenTurn = false;
     }
@@ -377,6 +387,14 @@ public class UIManager : MonoBehaviour {
 
     }
 
+    public void RefreshComboPlayer(BattleHandler.Combo newComboValue)
+    {
+        ComboPlayer.GetComponentInChildren<Text>().text = newComboValue.ToString();
+    }
+    public void RefreshComboEnemy(BattleHandler.Combo newComboValue)
+    {
+        ComboEnemy.GetComponentInChildren<Text>().text = newComboValue.ToString();
+    }
     public void RefreshPlayerInfo(int newValueAtt, int newValueDef)
     {
         AttDefPlayer.GetComponentInChildren<Text>().text = "Att: " + newValueAtt + "\nDef: " + newValueDef;
