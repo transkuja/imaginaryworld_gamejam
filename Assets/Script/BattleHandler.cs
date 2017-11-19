@@ -162,12 +162,15 @@ public static class BattleHandler {
 
     public static void RestoreDecks()
     {
-        playerData.playerDeck = initialPlayerDeckStatus;
-        enemyData.playerDeck = initialEnemyDeckStatus;
-
-        GameManager.instance.CurrentPlayer.playerData.playerDeck = initialPlayerDeckStatus;
-        GameManager.instance.CurrentPlayer.InitHand();
-        UIManager.instance.PlayerInitHand(GameManager.instance.CurrentPlayer.playerData.playerCards);
+        playerData.playerDeck = new List<Card>();
+        foreach (Card c in initialPlayerDeckStatus)
+        {
+            if (c.GetType() == typeof(ShieldCard))
+                playerData.playerDeck.Add(new ShieldCard((ShieldCard)c));
+            if (c.GetType() == typeof(SwordCard))
+                playerData.playerDeck.Add(new SwordCard((SwordCard)c));
+        }
+        GameObject.Find("PersistentPlayerData").GetComponent<PersistentPlayerData>().PlayerData = playerData;
 
         Reset();
     }
@@ -260,10 +263,6 @@ public static class BattleHandler {
             }
         }
         int effectiveDamage = (int)(rawDamage * comboMultiplier);
-
-        // dont commit
-        if (CurrentTurn == EntityTurn.Player)
-            effectiveDamage *= 3;
 
         DamageOpponentCards(effectiveDamage);
 
@@ -387,8 +386,11 @@ public static class BattleHandler {
         UIManager.instance.AttDefPlayer.SetActive(false);
         UIManager.instance.ComboEnemy.SetActive(false);
         UIManager.instance.ComboPlayer.SetActive(false);
+        UIManager.instance.PlayerInfo.SetActive(false);
+        UIManager.instance.EnemyInfo.SetActive(false);
         UIManager.instance.processInBetweenTurn = true;
         GameManager.instance.LosePanel.SetActive(true);
+
     }
 
     static void Reset()

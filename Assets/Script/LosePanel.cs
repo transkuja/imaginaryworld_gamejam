@@ -21,7 +21,7 @@ public class LosePanel : MonoBehaviour {
         UIManager.instance.ComboEnemy.SetActive(true);
         UIManager.instance.ComboPlayer.SetActive(true);
         gameObject.SetActive(false);
-
+        SceneManager.LoadScene(1);
     }
 
     public void AddToDeck()
