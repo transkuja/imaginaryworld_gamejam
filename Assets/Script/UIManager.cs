@@ -307,6 +307,10 @@ public class UIManager : MonoBehaviour {
             if (!destroyed)
             {
                 HandPlayer.transform.GetChild(cardIndex).GetComponent<CardInstance>().RefreshValues();
+                if (player.playerCards[cardIndex].CardHealth == 2)
+                    HandPlayer.transform.GetChild(cardIndex).GetComponent<Image>().material = GameManager.instance.MaterialUtils.damagedMaterial1;
+                if (player.playerCards[cardIndex].CardHealth == 1)
+                    HandPlayer.transform.GetChild(cardIndex).GetComponent<Image>().material = GameManager.instance.MaterialUtils.damagedMaterial2;
             }
             else
             {
@@ -320,6 +324,10 @@ public class UIManager : MonoBehaviour {
             if (!destroyed)
             {
                 HandEnemy.transform.GetChild(cardIndex).GetComponent<CardInstance>().RefreshValues();
+                if (player.playerCards[cardIndex].CardHealth == 2)
+                    HandEnemy.transform.GetChild(cardIndex).GetComponent<Image>().material = GameManager.instance.MaterialUtils.damagedMaterial1;
+                if (player.playerCards[cardIndex].CardHealth == 1)
+                    HandEnemy.transform.GetChild(cardIndex).GetComponent<Image>().material = GameManager.instance.MaterialUtils.damagedMaterial2;
             }
             else
             {

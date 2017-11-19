@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     public LayerMask layerMask;
     public Texture2D icon;
     public SpriteUtils SpriteUtils;
+    public MaterialUtils MaterialUtils;
 
     public List<CardInstance> selectedCards;
     public Dictionary<CardInstance, int> dictionarySelectedCardsValues;
