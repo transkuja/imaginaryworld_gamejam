@@ -35,24 +35,26 @@ public class Player
             currentTurnDefenseValue = 0;
 
             // Damage cards
-            for (int i = 0; i < damageOnCards; i++)
+            if (damageOnCards > 0)
             {
-                int damagedCardIndex = Random.Range(0, playerCards.Count);
-                playerCards[damagedCardIndex].CardHealth--;
+                for (int i = 0; i < damageOnCards; i++)
+                {
+                    int damagedCardIndex = Random.Range(0, playerCards.Count);
+                    playerCards[damagedCardIndex].CardHealth--;
 
-                if (playerCards[damagedCardIndex].CardHealth == 0)
-                {
-                    playerCards.RemoveAt(damagedCardIndex);
-                    if (OnCardDamage != null)
-                        OnCardDamage(this, damagedCardIndex, true);
-                }
-                else
-                {
-                    if (OnCardDamage != null)
-                        OnCardDamage(this, damagedCardIndex, false);
+                    if (playerCards[damagedCardIndex].CardHealth == 0)
+                    {
+                        playerCards.RemoveAt(damagedCardIndex);
+                        if (OnCardDamage != null)
+                            OnCardDamage(this, damagedCardIndex, true);
+                    }
+                    else
+                    {
+                        if (OnCardDamage != null)
+                            OnCardDamage(this, damagedCardIndex, false);
+                    }
                 }
             }
-
         }
     }
 
