@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -790,7 +790,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 215945375}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.4361, y: -0.083000004, z: 0}
+  m_LocalPosition: {x: 0.4361, y: -0.083000004, z: -0.03}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1385103246}
@@ -4617,6 +4617,40 @@ Prefab:
         type: 2}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114788490434870956, guid: e22594c891071784086386bb7ef528e5,
+        type: 2}
+      propertyPath: m_EffectDistance.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114788490434870956, guid: e22594c891071784086386bb7ef528e5,
+        type: 2}
+      propertyPath: m_EffectDistance.y
+      value: -3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1081787187615560, guid: e22594c891071784086386bb7ef528e5, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114788490434870956, guid: e22594c891071784086386bb7ef528e5,
+        type: 2}
+      propertyPath: m_EffectColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114788490434870956, guid: e22594c891071784086386bb7ef528e5,
+        type: 2}
+      propertyPath: m_EffectColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114788490434870956, guid: e22594c891071784086386bb7ef528e5,
+        type: 2}
+      propertyPath: m_EffectColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114788490434870956, guid: e22594c891071784086386bb7ef528e5,
+        type: 2}
+      propertyPath: m_EffectColor.a
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e22594c891071784086386bb7ef528e5, type: 2}
@@ -8731,6 +8765,36 @@ Prefab:
       propertyPath: m_RootOrder
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 114387483158209370, guid: 7cedd6ca8fede634f950b9ba2d967827,
+        type: 2}
+      propertyPath: m_EffectDistance.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114387483158209370, guid: 7cedd6ca8fede634f950b9ba2d967827,
+        type: 2}
+      propertyPath: m_EffectDistance.y
+      value: -3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114387483158209370, guid: 7cedd6ca8fede634f950b9ba2d967827,
+        type: 2}
+      propertyPath: m_EffectColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114387483158209370, guid: 7cedd6ca8fede634f950b9ba2d967827,
+        type: 2}
+      propertyPath: m_EffectColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114387483158209370, guid: 7cedd6ca8fede634f950b9ba2d967827,
+        type: 2}
+      propertyPath: m_EffectColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114387483158209370, guid: 7cedd6ca8fede634f950b9ba2d967827,
+        type: 2}
+      propertyPath: m_EffectColor.a
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 7cedd6ca8fede634f950b9ba2d967827, type: 2}
   m_IsPrefabParent: 0
@@ -8789,7 +8853,7 @@ Prefab:
     - target: {fileID: 224051609451372488, guid: fb4f2aa983d55eb489c8a1df23c1eda2,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 342
+      value: 297.43
       objectReference: {fileID: 0}
     - target: {fileID: 224051609451372488, guid: fb4f2aa983d55eb489c8a1df23c1eda2,
         type: 2}
@@ -8799,7 +8863,7 @@ Prefab:
     - target: {fileID: 224051609451372488, guid: fb4f2aa983d55eb489c8a1df23c1eda2,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 30
+      value: 119.14
       objectReference: {fileID: 0}
     - target: {fileID: 224051609451372488, guid: fb4f2aa983d55eb489c8a1df23c1eda2,
         type: 2}
@@ -8861,6 +8925,45 @@ Prefab:
         type: 2}
       propertyPath: m_RaycastTarget
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1705340574184260, guid: fb4f2aa983d55eb489c8a1df23c1eda2, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114339432891823062, guid: fb4f2aa983d55eb489c8a1df23c1eda2,
+        type: 2}
+      propertyPath: m_EffectDistance.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114339432891823062, guid: fb4f2aa983d55eb489c8a1df23c1eda2,
+        type: 2}
+      propertyPath: m_EffectDistance.y
+      value: -3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114339432891823062, guid: fb4f2aa983d55eb489c8a1df23c1eda2,
+        type: 2}
+      propertyPath: m_UseGraphicAlpha
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114339432891823062, guid: fb4f2aa983d55eb489c8a1df23c1eda2,
+        type: 2}
+      propertyPath: m_EffectColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114339432891823062, guid: fb4f2aa983d55eb489c8a1df23c1eda2,
+        type: 2}
+      propertyPath: m_EffectColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114339432891823062, guid: fb4f2aa983d55eb489c8a1df23c1eda2,
+        type: 2}
+      propertyPath: m_EffectColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114339432891823062, guid: fb4f2aa983d55eb489c8a1df23c1eda2,
+        type: 2}
+      propertyPath: m_EffectColor.a
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: fb4f2aa983d55eb489c8a1df23c1eda2, type: 2}
@@ -9322,7 +9425,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 854283899}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.187, y: -0.043, z: 0}
+  m_LocalPosition: {x: -1.187, y: -0.038000014, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1385103246}
@@ -10509,7 +10612,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1416419765}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.36910003, y: 0.184, z: 0}
+  m_LocalPosition: {x: 0.36910003, y: 0.184, z: -0.03}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1385103246}
@@ -11861,6 +11964,36 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 114907232882090960, guid: caa7789b314f10948982408478ca2258,
+        type: 2}
+      propertyPath: m_EffectDistance.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114907232882090960, guid: caa7789b314f10948982408478ca2258,
+        type: 2}
+      propertyPath: m_EffectDistance.y
+      value: -3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114907232882090960, guid: caa7789b314f10948982408478ca2258,
+        type: 2}
+      propertyPath: m_EffectColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114907232882090960, guid: caa7789b314f10948982408478ca2258,
+        type: 2}
+      propertyPath: m_EffectColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114907232882090960, guid: caa7789b314f10948982408478ca2258,
+        type: 2}
+      propertyPath: m_EffectColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114907232882090960, guid: caa7789b314f10948982408478ca2258,
+        type: 2}
+      propertyPath: m_EffectColor.a
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: caa7789b314f10948982408478ca2258, type: 2}
   m_IsPrefabParent: 0
@@ -11919,7 +12052,7 @@ Prefab:
     - target: {fileID: 224785400849978616, guid: b9281634e4d0f3e4793588de6f24d235,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: 341.99963
+      value: 297.43
       objectReference: {fileID: 0}
     - target: {fileID: 224785400849978616, guid: b9281634e4d0f3e4793588de6f24d235,
         type: 2}
@@ -11929,7 +12062,7 @@ Prefab:
     - target: {fileID: 224785400849978616, guid: b9281634e4d0f3e4793588de6f24d235,
         type: 2}
       propertyPath: m_SizeDelta.y
-      value: 30
+      value: 119.14
       objectReference: {fileID: 0}
     - target: {fileID: 224785400849978616, guid: b9281634e4d0f3e4793588de6f24d235,
         type: 2}
@@ -11991,6 +12124,45 @@ Prefab:
         type: 2}
       propertyPath: m_RaycastTarget
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1655611580786812, guid: b9281634e4d0f3e4793588de6f24d235, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114813324258297888, guid: b9281634e4d0f3e4793588de6f24d235,
+        type: 2}
+      propertyPath: m_EffectDistance.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114813324258297888, guid: b9281634e4d0f3e4793588de6f24d235,
+        type: 2}
+      propertyPath: m_EffectDistance.y
+      value: -3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114813324258297888, guid: b9281634e4d0f3e4793588de6f24d235,
+        type: 2}
+      propertyPath: m_UseGraphicAlpha
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114813324258297888, guid: b9281634e4d0f3e4793588de6f24d235,
+        type: 2}
+      propertyPath: m_EffectColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114813324258297888, guid: b9281634e4d0f3e4793588de6f24d235,
+        type: 2}
+      propertyPath: m_EffectColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114813324258297888, guid: b9281634e4d0f3e4793588de6f24d235,
+        type: 2}
+      propertyPath: m_EffectColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114813324258297888, guid: b9281634e4d0f3e4793588de6f24d235,
+        type: 2}
+      propertyPath: m_EffectColor.a
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b9281634e4d0f3e4793588de6f24d235, type: 2}
@@ -12413,6 +12585,40 @@ Prefab:
       propertyPath: m_RootOrder
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 1984884298205106, guid: d533ff038d755b84993316cf412620ca, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114061340370952258, guid: d533ff038d755b84993316cf412620ca,
+        type: 2}
+      propertyPath: m_EffectDistance.x
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114061340370952258, guid: d533ff038d755b84993316cf412620ca,
+        type: 2}
+      propertyPath: m_EffectDistance.y
+      value: -3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114061340370952258, guid: d533ff038d755b84993316cf412620ca,
+        type: 2}
+      propertyPath: m_EffectColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114061340370952258, guid: d533ff038d755b84993316cf412620ca,
+        type: 2}
+      propertyPath: m_EffectColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114061340370952258, guid: d533ff038d755b84993316cf412620ca,
+        type: 2}
+      propertyPath: m_EffectColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114061340370952258, guid: d533ff038d755b84993316cf412620ca,
+        type: 2}
+      propertyPath: m_EffectColor.a
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d533ff038d755b84993316cf412620ca, type: 2}
   m_IsPrefabParent: 0
@@ -12440,7 +12646,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2088917069}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.0810001, y: 0.19399999, z: 0}
+  m_LocalPosition: {x: -1.0810001, y: 0.199, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1385103246}
